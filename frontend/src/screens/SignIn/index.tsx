@@ -32,29 +32,29 @@ export default function SignIn() {
         return
       }
       dispatch(signInSuccess(data))
-      navigate('/')
+      navigate('/home')
     } catch (error) {
       dispatch(signInFailure(error))
     }
   }
   return (
-    <div className="mx-auto max-w-lg p-3">
-      <h1 className="my-7 text-center text-3xl font-semibold">Sign In</h1>
+    <div className="max-w-lg p-3 mx-auto">
+      <h1 className="text-3xl font-semibold text-center my-7">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input type="email" placeholder="email" className="rounded-lg border p-3" id="email" onChange={handleChange} />
+        <input type="email" placeholder="email" className="p-3 border rounded-lg" id="email" onChange={handleChange} />
         <input
           type="password"
           placeholder="password"
-          className="rounded-lg border p-3"
+          className="p-3 border rounded-lg"
           id="password"
           onChange={handleChange}
         />
 
-        <button className="rounded-lg bg-slate-700 p-3 uppercase text-white hover:opacity-95 disabled:opacity-80">
+        <button className="p-3 text-white uppercase rounded-lg bg-slate-700 hover:opacity-95 disabled:opacity-80">
           {loading ? 'Loading...' : 'Sign In'}
         </button>
       </form>
-      <div className="mt-5 flex gap-2">
+      <div className="flex gap-2 mt-5">
         <p>Dont have an account?</p>
 
         <Link to={'/sign-up'}>

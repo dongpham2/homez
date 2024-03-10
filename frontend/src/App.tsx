@@ -4,9 +4,10 @@ import NotFound from './screens/notFound'
 import Loading from './components/Loading'
 import SignIn from './screens/SignIn'
 import MainLayout from './Layout'
-import { Provider } from 'react-redux'
-import { persistor, store } from './redux/store'
-import { PersistGate } from 'redux-persist/integration/react'
+import Home from './screens/Home'
+import About from './screens/About'
+import Profile from './screens/Profile'
+import SignUp from './screens/SignUp'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   // const location = useLocation()
@@ -31,16 +32,38 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 const router = createBrowserRouter([
   {
+    path: 'signup',
+    element: <SignUp />,
+  },
+  {
     path: '/signin',
     element: <SignIn />,
   },
   {
     path: '/',
     element: (
-      <ProtectedRoute>
-        <MainLayout />
-      </ProtectedRoute>
+      // <ProtectedRoute>
+      <MainLayout />
+      // </ProtectedRoute>
     ),
+    children: [
+      {
+        path: '',
+        element: <Navigate to="/home" replace />,
+      },
+      {
+        path: 'home',
+        element: <Home />,
+      },
+      {
+        path: 'about',
+        element: <About />,
+      },
+      {
+        path: 'profile',
+        element: <Profile />,
+      },
+    ],
   },
   {
     path: '/*',
@@ -55,13 +78,9 @@ const NestedApp = () => {
 const App = () => {
   return (
     <div data-testid="app">
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Suspense fallback={<Loading />}>
-            <NestedApp />
-          </Suspense>
-        </PersistGate>
-      </Provider>
+      <Suspense fallback={<Loading />}>
+        <NestedApp />
+      </Suspense>
     </div>
   )
 }
