@@ -1,6 +1,6 @@
-export interface userInforType {
-    username: string;
-    email: string;
-    password: string;
-    avatar: string;
+export interface User {
+  username: string
+  email: string
+  password: string
+  avatar: string
 }
