@@ -3,6 +3,8 @@ import { app } from '../../firebase'
 import { useDispatch } from 'react-redux'
 import { signInSuccess } from '~/redux/user/userSlice'
 import { useNavigate } from 'react-router-dom'
+import { Button } from '../Button'
+import googleIcon from '~/assets/google-icon.svg'
 
 const OAuth = () => {
   const dispatch = useDispatch()
@@ -28,13 +30,14 @@ const OAuth = () => {
     }
   }
   return (
-    <button
-      type="button"
+    <Button
+      className="mb-5 mt-10 flex items-center gap-4 bg-white px-28 py-4"
       onClick={handleGoogleClick}
-      className="rounded-lg bg-red-700 p-3 uppercase text-white hover:opacity-95 disabled:opacity-80"
+      type="button"
     >
-      continue with google
-    </button>
+      <img src={googleIcon} alt="googleIcon" />
+      Sign in with Google
+    </Button>
   )
 }
 

@@ -3,10 +3,16 @@ import logo from '../../assets/logoM.png'
 import { Link } from 'react-router-dom'
 import { RootState } from '~/redux/store'
 import { useSelector } from 'react-redux'
+import UserOptions from '../UserOptions'
+import { useState } from 'react'
 
 const Header = () => {
   const { currentUser } = useSelector((state: RootState) => state.user)
+  const [visibleOption, setVisibleOption] = useState(false)
 
+  const toggleVisibleOption = () => {
+    setVisibleOption(!visibleOption)
+  }
   return (
     <div className="flex items-center justify-between border-b-2 p-4">
       <div className="flex items-center">
@@ -27,13 +33,14 @@ const Header = () => {
             <Button variant="ghost" size="sm">
               Đăng tin
             </Button>
-            <Link to="/profile">
+            <div onClick={toggleVisibleOption} className="cursor-pointer">
               <img
                 src={currentUser?.avatar}
                 alt="avatar"
                 className="h-14 w-14 rounded-full bg-no-repeat object-cover"
               />
-            </Link>
+            </div>
+            {visibleOption ? <UserOptions /> : ''}
           </div>
         ) : (
           <>
