@@ -37,6 +37,8 @@ body {
     --orange-primary: #e03c31;
     --text-primary: #1e1e1e;
     --gray-primary: #fafafa;
+    --hover-orange-primary: #f19486;
+    --hover-orange-second: #fbe0dc;
   }
 
   .dark {
