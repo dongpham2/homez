@@ -8,24 +8,19 @@ import Home from './screens/Home'
 import About from './screens/About'
 import Profile from './screens/Profile'
 import SignUp from './screens/SignUp'
+import { RootState } from './redux/store'
+import { useSelector } from 'react-redux'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   // const location = useLocation()
+  const currentUser = useSelector((state: RootState) => state.user)
   // const getUserRecoil = useRecoilValue(userState) as User['user'] | null
 
   // const path = location.pathname
 
-  // if (getUserRecoil && !getUserRecoil.access_token) {
-  //   return <Navigate to="/login" replace />
-  // }
-
-  // if (path.startsWith('/admin') && getUserRecoil?.data?.role !== ADMIN) {
-  //   return <Navigate to="/login" replace />
-  // }
-
-  // if (path.startsWith('/shop') && getUserRecoil?.data?.role !== OWNER) {
-  //   return <Navigate to="/login" replace />
-  // }
+  if (currentUser && !currentUser) {
+    return <Navigate to="/signin" replace />
+  }
 
   return children
 }
@@ -41,11 +36,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: (
-      // <ProtectedRoute>
-      <MainLayout />
-      // </ProtectedRoute>
-    ),
+    element: <MainLayout />,
     children: [
       {
         path: '',
@@ -61,7 +52,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        element: <Profile />,
+        element: (
+          <ProtectedRoute>
+            <Profile />,
+          </ProtectedRoute>
+        ),
       },
     ],
   },
