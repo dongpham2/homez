@@ -28,7 +28,11 @@ const Header = () => {
               Đăng tin
             </Button>
             <Link to="/profile">
-              <img src={currentUser?.avatar} alt="avatar" />
+              <img
+                src={currentUser?.avatar}
+                alt="avatar"
+                className="h-14 w-14 rounded-full bg-no-repeat object-cover"
+              />
             </Link>
           </div>
         ) : (
