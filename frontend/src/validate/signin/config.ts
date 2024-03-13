@@ -1,7 +1,7 @@
 import * as yup from 'yup'
 import messages from './messages'
 
-export interface UserReq {
+export interface IUserReq {
   email?: string
   password?: string
 }
@@ -13,7 +13,7 @@ const signinValidate = yup
   })
   .required()
 
-export const signinInitValues: UserReq = {
+export const signinInitValues: IUserReq = {
   email: '',
   password: '',
 }

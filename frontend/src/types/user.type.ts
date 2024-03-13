@@ -1,18 +1,22 @@
-export interface SignInRequest {
+export interface ISignInRequest {
   email: string
   password: string
 }
 
-export interface SignUpRequest {
-  username:string
-  email: string
-  password: string
-}
-
-export interface User {
+export interface ISignUpRequest {
   username: string
   email: string
   password: string
+}
+
+export interface IUser {
+  username?: string
+  email: string
+  password: string
   avatar?: string | null
-  access_token?: string
+}
+
+export interface ISignInUser {
+  email: string
+  password: string
 }
