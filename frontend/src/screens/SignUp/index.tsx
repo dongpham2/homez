@@ -4,6 +4,7 @@ import AuthLayout from '~/Layout/AuthLayout'
 import { Button } from '~/components/Button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
+import { fetchSignUp, useAppDispatch } from '~/redux/user/userSlice'
 import { ISignUpRequest } from '~/types/user.type'
 import signupValidate, { signupInitValues } from '~/validate/signup/config'
 
@@ -49,15 +50,22 @@ const SignUp = () => {
   //   defaultValues: signInInitValues,
   //   resolver: yupResolver(signinValidate),
   // })
+  const dispatch = useAppDispatch()
+
   const form = useForm<ISignUpRequest>({
     mode: 'all',
     defaultValues: signupInitValues,
     resolver: yupResolver(signupValidate),
   })
+  const onSubmit = () => {
+    const formData = form.getValues()
+    console.log('formData', formData)
+    dispatch(fetchSignUp(formData))
+  }
   return (
     <AuthLayout funcTitle="Sign In" pageTitle="Sign Up" toPage="/signin">
       <Form {...form}>
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2">
             <h3 className="text-base font-medium">Tên người dùng</h3>
             <FormField

@@ -1,7 +1,7 @@
 import { AppDispatch } from './../store'
 import { createAsyncThunk, createSlice, isRejectedWithValue } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import { signInApi } from '~/services/authService'
+import { signInApi, signUpApi } from '~/services/authService'
 import { ISignInUser, IUser } from '~/types/user.type'
 
 const initialState = {
@@ -37,14 +37,32 @@ const userSlice = createSlice({
   },
   extraReducers(builder) {
     builder
+      .addCase(fetchSignUp.pending, (state) => {
+        state.status = 'pending'
+      })
+      .addCase(fetchSignUp.fulfilled, (state, action) => {
+        const resData = action.meta.arg
+        if (resData) {
+          state.status = 'idle'
+          state.success = true
+          state.message = ''
+          state.currentUser = resData
+        } else {
+          state.status = 'idle'
+          state.success = false
+          state.message = 'Email đã tồn tại'
+        }
+      })
       .addCase(fetchSignIn.pending, (state) => {
         state.status = 'pending'
       })
       .addCase(fetchSignIn.fulfilled, (state, action) => {
-        const resData = action.payload
+        const resData = action.meta.arg
+        console.log('resData', resData)
         if (resData) {
           state.status = 'idle'
           state.success = true
+          state.message = ''
           state.currentUser = resData
         } else {
           state.status = 'idle'
@@ -55,9 +73,17 @@ const userSlice = createSlice({
   },
 })
 
-export const fetchSignIn = createAsyncThunk('auth/fetchSignIn', async (dataUser: ISignInUser) => {
+export const fetchSignUp = createAsyncThunk('accounts/fetchSignUp', async (dataUser: IUser) => {
   try {
-    await signInApi(dataUser)
+    return await signUpApi(dataUser)
+  } catch (error) {
+    return isRejectedWithValue(error)
+  }
+})
+
+export const fetchSignIn = createAsyncThunk('auth/fetchSignIn', (dataUser: ISignInUser) => {
+  try {
+    signInApi(dataUser)
   } catch (error) {
     return isRejectedWithValue(error)
   }

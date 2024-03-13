@@ -55,7 +55,6 @@ export default function SignIn() {
 
   const onSubmit = () => {
     const formData = form.getValues()
-    console.log('formData', formData)
     dispatch(fetchSignIn(formData))
   }
 
@@ -101,7 +100,7 @@ export default function SignIn() {
           </div>
           <p className="flex cursor-pointer justify-end font-medium">Quên mật khẩu?</p>
           <div className="mt-3 flex justify-end">
-            <Button variant="primary" size="lg" className="w-56 text-white">
+            <Button type="submit" variant="primary" size="lg" className="w-56 text-white">
               Đăng nhập
             </Button>
           </div>
