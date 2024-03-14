@@ -7,14 +7,16 @@
 
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
-import { SignInRequest } from '~/types/user.type'
+import { ISignInRequest } from '~/types/user.type'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
 import AuthLayout from '~/Layout/AuthLayout'
 import { Button } from '~/components/Button'
 import signinValidate, { signinInitValues } from '~/validate/signin/config'
+import { fetchSignIn, useAppDispatch } from '~/redux/user/userSlice'
 
 export default function SignIn() {
+  const dispatch = useAppDispatch()
   // const navigate = useNavigate()
   // const dispatch = useDispatch()
   // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,16 +47,21 @@ export default function SignIn() {
   //     dispatch(signInFailure(error))
   //   }
   // }
-  const form = useForm<SignInRequest>({
+  const form = useForm<ISignInRequest>({
     mode: 'all',
     defaultValues: signinInitValues,
     resolver: yupResolver(signinValidate),
   })
 
+  const onSubmit = () => {
+    const formData = form.getValues()
+    dispatch(fetchSignIn(formData))
+  }
+
   return (
     <AuthLayout label="No Account?" funcTitle="Sign Up" pageTitle="Sign In" toPage="/signup">
       <Form {...form}>
-        <form className="flex flex-col gap-5">
+        <form className="flex flex-col gap-5" onSubmit={form.handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2">
             <h3 className="text-base font-medium">Email</h3>
             <FormField
@@ -93,7 +100,7 @@ export default function SignIn() {
           </div>
           <p className="flex cursor-pointer justify-end font-medium">Quên mật khẩu?</p>
           <div className="mt-3 flex justify-end">
-            <Button variant="primary" size="lg" className="w-56 text-white">
+            <Button type="submit" variant="primary" size="lg" className="w-56 text-white">
               Đăng nhập
             </Button>
           </div>
