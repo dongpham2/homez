@@ -1,49 +1,44 @@
-import { v4 as uuidv4 } from 'uuid'
-
-import uploadIcon from '~/assets/upload.svg'
-
-interface ICardReportProps {
-  title?: string
-  datetime?: string
-  content?: string
-  attachments?: { file_url?: string; file_name?: string }[]
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "./Card";
+import { Button } from "./Button";
+import heartOutline from "../assets/icons/heartOutline.icon.svg"
+import heartOutlineFill from "../assets/icons/heartOutlineFill.icon.svg"
+import { ReactNode, useState } from "react";
+import "./cardTitle.css"
+interface CardReportProps {
+  img: string,
+  title: string,
+  price:string,
+  area: number,
+  address: string,
+  date: string,
+  vote: boolean,
+  children:ReactNode,
 }
-const CardReport = ({ title, datetime, content, attachments }: ICardReportProps) => {
+
+const CardReport = ({img, title, price, area, address, date, vote, children}:CardReportProps) =>{
+  const [userVote, setUserVote] = useState(vote)
+  const handleVote = () =>{
+    setUserVote(!userVote) 
+  }
   return (
-    <div className="relative mb-10 w-full basis-1/2 rounded border-2 border-black bg-white p-4">
-      <h2 className="mb-4 border-b border-gray-primary pb-4 text-xl font-bold not-italic leading-normal text-black">
-        {title}
-      </h2>
-      <div className="mb-4 border-b border-gray-primary pb-4 text-base font-normal not-italic leading-6 text-black">
-        {content}
-      </div>
-
-      <div className="flex items-center gap-4">
-        <div className="text-nowrap text-base font-medium not-italic leading-normal">ファイル名:</div>
-        <div className="flex flex-col gap-y-1">
-          {attachments?.map((attachment) => (
-            <div className="flex items-center gap-x-5" key={uuidv4()}>
-              <div className="line-clamp-1 lg:line-clamp-none">{attachment.file_name}</div>
-              <a
-                className="flex cursor-pointer items-center gap-2 rounded-sm border-2 border-black px-3 py-2"
-                type="button"
-                href={attachment.file_url}
-              >
-                <img src={uploadIcon} alt="uploadIcon" className="max-w-fit lg:max-w-full" />
-                <span className="hidden text-base font-bold not-italic leading-normal text-black md:inline-block">
-                  ダウンロードする
-                </span>
-              </a>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="rounded-bl-0 absolute -left-[2px] -top-5 rounded-br-[5px] rounded-tl-[5px] rounded-tr-[5px] bg-black px-1 py-2 text-xs font-medium leading-normal text-white">
-        {datetime}
-      </div>
+    <div className="m-0 p-0 box-border">
+      {/* h-96 max-h-[410px] min-w-64 xl:min-w-0 cursor-pointer border-none box-border  */}
+      <Card className="h-full overflow-hidden border-none"  >
+         <img src={img} alt="img" className="rounded-t-lg h-60 w-full object-cover object-center" />
+         <div>{children}</div>
+          <div className="p-3 space-y-2">
+            <CardTitle className="leading-tight w-64 text-ellipsis whitespace-nowrap overflow-hidden">{title} </CardTitle>
+            <CardDescription className="text-red-500 font-medium">{price} - {area} m²</CardDescription>
+            <CardDescription>{address}</CardDescription>
+            <CardFooter>
+              <p className="text-base">{date}</p>
+              <Button onClick={handleVote}>
+                {userVote ? <img src={heartOutlineFill} alt=""  />: <img src={heartOutline} alt=""  />}
+              </Button>
+            </CardFooter>
+          </div>
+      </Card>
     </div>
   )
 }
-
 export default CardReport
