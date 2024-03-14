@@ -9,47 +9,6 @@ import { ISignUpRequest } from '~/types/user.type'
 import signupValidate, { signupInitValues } from '~/validate/signup/config'
 
 const SignUp = () => {
-  // const [formData, setFormData] = useState({})
-  // const [error, setError] = useState(null)
-  // const [loading, setLoading] = useState(false)
-  // const navigate = useNavigate()
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.id]: e.target.value,
-  //   })
-  // }
-  // const handleSubmit = async (e: FormEvent) => {
-  //   e.preventDefault()
-  //   try {
-  //     setLoading(true)
-  //     const res = await fetch('/api/auth/signup', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     })
-  //     const data = await res.json()
-  //     console.log(data)
-  //     if (data.success === false) {
-  //       setLoading(false)
-  //       setError(data.message)
-  //       return
-  //     }
-  //     setLoading(false)
-  //     setError(null)
-  //     navigate('/signin')
-  //   } catch (error) {
-  //     setLoading(false)
-  //     // setError(error.message);
-  //   }
-  // }
-  // const form = useForm<LoginRequest>({
-  //   mode: 'all',
-  //   defaultValues: signInInitValues,
-  //   resolver: yupResolver(signinValidate),
-  // })
   const dispatch = useAppDispatch()
 
   const form = useForm<ISignUpRequest>({
@@ -59,7 +18,6 @@ const SignUp = () => {
   })
   const onSubmit = () => {
     const formData = form.getValues()
-    console.log('formData', formData)
     dispatch(fetchSignUp(formData))
   }
   return (

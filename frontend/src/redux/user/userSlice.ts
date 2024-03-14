@@ -1,7 +1,7 @@
 import { AppDispatch } from './../store'
 import { createAsyncThunk, createSlice, isRejectedWithValue } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import { signInApi, signUpApi } from '~/services/authService'
+import { signInApi, signInWithGoogle, signUpApi, signout } from '~/services/authService'
 import { ISignInUser, IUser } from '~/types/user.type'
 
 const initialState = {
@@ -12,29 +12,11 @@ const initialState = {
   message: '',
   currentUser: {},
 }
-// const initialState = {
-//   currentUser: null,
-//   error: null,
-//   loading: false,
-// }
 
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {
-    // signInStart: (state) => {
-    //   state.loading = true
-    // },
-    // signInSuccess: (state, action) => {
-    //   state.currentUser = action.payload
-    //   state.loading = false
-    //   state.error = null
-    // },
-    // signInFailure: (state, action) => {
-    //   state.error = action.payload
-    //   state.loading = false
-    // },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
       .addCase(fetchSignUp.pending, (state) => {
@@ -58,7 +40,6 @@ const userSlice = createSlice({
       })
       .addCase(fetchSignIn.fulfilled, (state, action) => {
         const resData = action.meta.arg
-        console.log('resData', resData)
         if (resData) {
           state.status = 'idle'
           state.success = true
@@ -69,6 +50,32 @@ const userSlice = createSlice({
           state.message = 'Tài khoản hoặc mật khẩu không chính xác'
           state.success = false
         }
+      })
+      .addCase(fetchSignInWithGoogle.pending, (state) => {
+        state.status = 'pending'
+      })
+      .addCase(fetchSignInWithGoogle.fulfilled, (state, action) => {
+        const resData = action.meta.arg
+        console.log('google resData', resData)
+        if (resData) {
+          state.status = 'idle'
+          state.success = true
+          state.message = ''
+          state.currentUser = resData
+        } else {
+          state.status = 'idle'
+          state.message = 'Tài khoản lỗi'
+          state.success = false
+        }
+      })
+      .addCase(fetchSignOut.pending, (state) => {
+        state.status = 'pending'
+      })
+      .addCase(fetchSignOut.fulfilled, (state) => {
+        state.status = 'idle'
+        state.currentUser = {}
+         state.loading = false
+         state.error = null
       })
   },
 })
@@ -84,6 +91,20 @@ export const fetchSignUp = createAsyncThunk('accounts/fetchSignUp', async (dataU
 export const fetchSignIn = createAsyncThunk('auth/fetchSignIn', (dataUser: ISignInUser) => {
   try {
     signInApi(dataUser)
+  } catch (error) {
+    return isRejectedWithValue(error)
+  }
+})
+export const fetchSignInWithGoogle = createAsyncThunk('auth/fetchSignInWithGoogle', (dataUser: IUser) => {
+  try {
+    signInWithGoogle(dataUser)
+  } catch (error) {
+    return isRejectedWithValue(error)
+  }
+})
+export const fetchSignOut = createAsyncThunk('auth/fetchSignOut', () => {
+  try {
+    signout()
   } catch (error) {
     return isRejectedWithValue(error)
   }
