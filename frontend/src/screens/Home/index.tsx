@@ -1,179 +1,58 @@
-import { useRef, useState, useEffect, ReactNode } from "react";
+import {  useState, useRef  } from "react";
 import banner from "../../assets/banner.png";
-import expandTopRight from "../../assets/icons/expandTopRight.icon.svg"
-import expandWhite from "../../assets/icons/expandWhite.icon.svg"
 import { Button } from "../../components/Button";
 import { Input } from "../../components/Input";
-import { Link } from "react-router-dom";
-import CardReport from "~/components/CardReport";
-import { Card } from "~/components/Card";
+import LocationRealEstate from "~/components/LocationRealEstate";
+import ForYouHome from "~/components/ForYouHome";
+import Outstanding from "~/components/Outstanding";
+import chevronLeft from "../../assets/icons/chevronLeft.icon.svg"
+import chevronRight from "../../assets/icons/chevronRight.icon.svg"
 
 const Home = () => {
-  const imgtemp = "https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg"
-  const imgtemp2 = "https://www.livehome3d.com/assets/img/social/how-to-design-a-house.jpg"
-  const card =[
-  {
-    img:"https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
-    title: "Nhà của Đông Nhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của Đông",
-    price:"15 Triệu/tháng",
-    area: 100,
-    address: "Quận 7, TP.HCM",
-    date: "Đăng hôm nay",
-    vote: true,
+  const news = [
+    {
+    img: "https://assetsio.gnwcdn.com/minecraft-house-ideas-ultimate-survival-house.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp",
+    title: "Những điều quan trọng cần lưu ý trong luật bất động sản mới sắp được ban hành vào tháng 7/2024",
   },
   {
-    img:"https://giadinh.mediacdn.vn/zoom/700_438/2018/11/9/chay-2-15417329139951061473470.jpg",
-    title: "House on the Sun",
-    price:"0 Đồng/tháng",
-    area: 100,
-    address: "Sun",
-    date: "3/3/2023",
-    vote: false,
+    img: "https://cdn.akamai.steamstatic.com/steam/apps/1190970/capsule_616x353.jpg?t=1708006385",
+    title: "Những điều quan trọng cần lưu ý trong luật bất động sản mới sắp được ban hành vào tháng 7/2024",
   },
   {
-    img:"https://kientrucphunguyen.com/wp-content/uploads/2022/07/241234228_6284175351624046_748332931927161609_n.jpg",
-    title: "Nhà của Hân",
-    price:"150 Triệu/tháng",
-    area: 100,
-    address: "Nam từ Liêm, Hà Nội",
-    date: "Đăng hôm nay",
-    vote: false,
+    img: "",
+    title: "Những điều quan trọng cần lưu ý trong luật bất động sản mới sắp được ban hành vào tháng 7/2024",
   },
   {
-    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz0lo1BXoOgPupGc2wH6SYJUL1SBu6tVqdwg&usqp=CAU",
-    title: "Nhà của Hân",
-    price:"150 Triệu/tháng",
-    area: 100,
-    address: "Nam từ Liêm, Hà Nội",
-    date: "Đăng hôm nay",
-    vote: true,
+    img: "https://assetsio.gnwcdn.com/minecraft-house-ideas-ultimate-survival-house.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp",
+    title: "Những điều quan trọng cần lưu ý trong luật bất động sản mới sắp được ban hành vào tháng 7/2024",
   },
   {
-    img:"https://xaynhadeponline.com/_next/image?url=https%3A%2F%2Fapi.xaynhadeponline.com%2Fuploads%2Fban_ve_tang_lung_nha_cap_4_mai_bang_9f0da50266.jpg%3Fwidth%3D750%26height%3D515&w=1920&q=75",
-    title: "House on the Sun",
-    price:"27 Tỷ",
-    area: 100,
-    address: "Sun",
-    date: "3/3/2023",
-    vote: true,
+    img: "https://assetsio.gnwcdn.com/minecraft-house-ideas-ultimate-survival-house.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp",
+    title: "Những điều quan trọng cần lưu ý trong luật bất động sản mới sắp được ban hành vào tháng 7/2024",
   },
-  {
-    img:"https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
-    title: "Nhà của Đông",
-    price:"15 Triệu/tháng",
-    area: 100,
-    address: "Quận 7, TP.HCM",
-    date: "Đăng hôm nay",
-    vote: true,
-  },
-
-  {
-    img:"https://static-images.vnncdn.net/files/publish/2023/2/26/nha-vuon-1-819.jpg",
-    title: "Nhà của Hân",
-    price:"150 Triệu/tháng",
-    area: 100,
-    address: "Nam từ Liêm, Hà Nội",
-    date: "Đăng hôm nay",
-    vote: true,
-  },
-  {
-    img:"https://xaynhadeponline.com/_next/image?url=https%3A%2F%2Fapi.xaynhadeponline.com%2Fuploads%2Fthiet_ke_nha_8e8cbc25ab.png%3Fwidth%3D1600%26height%3D960&w=3840&q=75",
-    title: "House on the Sun",
-    price:"300 Triệu/tháng",
-    area: 100,
-    address: "Sun",
-    date: "3/3/2023",
-    vote: false,
-  },
-  {
-    img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTCCmsawF79TyaIh-jfXabWSr1AS9oajgLrPw&usqp=CAU",
-    title: "Nhà của Đông",
-    price:"15 Triệu/tháng",
-    area: 100,
-    address: "Quận 7, TP.HCM",
-    date: "Đăng hôm nay",
-    vote: false,
-  },
-]
-
-const card2 =[
-  {
-    img:"https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg",
-    title: "Nhà của Đông Nhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của Đông",
-    price:"15 Triệu/tháng",
-    area: 100,
-    address: "Quận 7, TP.HCM",
-    date: "Đăng hôm nay",
-    vote: true,
-  },
-  {
-    img:"https://giadinh.mediacdn.vn/zoom/700_438/2018/11/9/chay-2-15417329139951061473470.jpg",
-    title: "House on the Sun",
-    price:"0 Đồng/tháng",
-    area: 100,
-    address: "Sun",
-    date: "3/3/2023",
-    vote: false,
-  },
-  {
-    img:"https://kientrucphunguyen.com/wp-content/uploads/2022/07/241234228_6284175351624046_748332931927161609_n.jpg",
-    title: "Nhà của Hân",
-    price:"150 Triệu/tháng",
-    area: 100,
-    address: "Nam từ Liêm, Hà Nội",
-    date: "Đăng hôm nay",
-    vote: false,
-  },
-  {
-    img:"https://static-images.vnncdn.net/files/publish/2023/2/26/nha-vuon-1-819.jpg",
-    title: "Nhà của Hân",
-    price:"150 Triệu/tháng",
-    area: 100,
-    address: "Nam từ Liêm, Hà Nội",
-    date: "Đăng hôm nay",
-    vote: true,
-  },
-  {
-    img:"https://xaynhadeponline.com/_next/image?url=https%3A%2F%2Fapi.xaynhadeponline.com%2Fuploads%2Fthiet_ke_nha_8e8cbc25ab.png%3Fwidth%3D1600%26height%3D960&w=3840&q=75",
-    title: "House on the Sun",
-    price:"300 Triệu/tháng",
-    area: 100,
-    address: "Sun",
-    date: "3/3/2023",
-    vote: false,
-  },
-]
-
-const [isDesktop, setIsDesktop] = useState(true);
-
-useEffect(() => {
-  const updateIsDesktop = () => {
-    const width = window.innerWidth;
-    setIsDesktop(width >= 789);
-  };
-
-  window.addEventListener('resize', updateIsDesktop);
-
-  updateIsDesktop();
-
-  return () => {
-    window.removeEventListener('resize', updateIsDesktop);
-  };
-}, []);
-
-
-  const [selectedTabIndex, setSelectedTabIndex] = useState(0);
   
-  const handleTabClick = (index:number) => {
-    setSelectedTabIndex(index);
-  };
+]
 
-  const getCardsForIndex = (index:number, screen:number) => {
-    return card.slice(index * screen, (index + 1) * screen);
-  };
-  const cards = getCardsForIndex(selectedTabIndex, isDesktop ? 3 : 2);
+const [currentSlide,setCurrentSlide ] =useState(0)
+const handlePrev = () => {
+  if (currentSlide > 0) {
+    setCurrentSlide(currentSlide - 1);
+  }
+};
+
+const handleNext = () => {
+  if (currentSlide < news.length - 3) {
+    setCurrentSlide(currentSlide + 1);
+    
+  }
+  // slide?.style = `transform: translateX(${33.333333}%)`;
+  let domEl: HTMLElement | null = document.querySelector("#slider");
+  domEl && (domEl.style.transform = ` translateX(${100}px)`);
+};
+
   return (
-    <div className="overflow-y-auto h-[880px]">
+    <div className="overflow-y-auto m-0 p-0 flex flex-col h-[880px]">
+      <div className="">
       <div className="relative">
         <img src={banner} alt="banner" className="w-full overflow-hidden" />
         <form className="w-[70%] absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center pl-3 bg-white border-2 border-gray-primary rounded-lg">
@@ -188,120 +67,41 @@ useEffect(() => {
         </form>
       </div>
 
+      <div className="flex flex-col bg-[--gray-second] p-5 xl:px-[15%] sm:w-auto overflow-hidden pb-10">
+        <ForYouHome/>
+      </div>
 
-      <div className="m-0 p-0 box-border">
+      <div className="flex flex-col bg-white p-5 xl:px-[15%] sm:w-auto overflow-hidden pb-10" >
+        <LocationRealEstate/>
+      </div>
 
-      <div className="h-auto bg-[#F7F7F7] p-5 flex xl:px-[15%] flex-col overflow-auto">
-        <div className="w-[550px] sm:w-auto overflow-visible ">
-          <div className="flex justify-between items-center py-10">
-            <h1 className="text-xl sm:text-3xl font-medium">Dành cho bạn</h1>
-            <Link to={""} className="flex h-full">
-              <p className="text-base mr-2">Xem tất cả</p>
-              <img src={expandTopRight} alt="expand top right" />
-            </Link>
-          </div>
-          <div className="flex gap-5 items-center justify-between ">
+      <div className="flex flex-col  bg-[--orange-primary] p-5 xl:px-[15%] sm:w-auto overflow-hidden">
+        <Outstanding/>
+      </div>
+
+      <div className=" h-full max-h-[500px] bg-white p-5 xl:px-[15%] sm:w-auto overflow-hidden pb-10 relative">
+
+        <h1 className="text-base sm:text-3xl font-medium mb-10">Tin tức bất động sản</h1>
+        <div className="flex relative">
+          <Button onClick={handlePrev}>
+              <img src={chevronLeft} className="h-24" />
+            </Button>
+          <div id="slider" className="slide flex gap-4 relative px-2">
             {
-              cards.map((item, index) =>(
-                <div className="flex-1">
-                <CardReport 
-                  key={index} 
-                  img={item.img} 
-                  title={item.title} 
-                  price={item.price} 
-                  area={item.area} 
-                  address={item.address} 
-                  date={item.date} 
-                  vote={item.vote} 
-                  children=""
-                />
+              news.map((item, index) =>(
+                <div key={index} className={`flex-1 h-full overflow-hidden border-none cursor-pointer rounded-lg ${index >= currentSlide && index < currentSlide + 3 ? '': 'hidden'}`} >
+                  <img className="h-40 w-full"  src={item.img} alt="news" />
+                  <p className="pt-5">{item.title}</p>
                 </div>
               ))
             }
           </div>
-          <ul className="flex px-72 justify-center items-center">
-            {Array(Math.ceil(card.length / 3)).fill(null).map((_, i) => (
-              <li
-                key={i}
-                className={`text-6xl cursor-pointer p-0  ${i === selectedTabIndex ? '' : 'text-gray-400'}`}
-                onClick={() => handleTabClick(i)}
-              >
-                .
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <div className="flex flex-col h-auto bg-white p-5 xl:px-[15%] w-[550px] sm:w-auto" >
-        <div className="flex justify-center items-center py-10">
-          <h1 className="text-3xl font-medium">Bất động sản theo địa điểm</h1>
+          <Button onClick={handleNext}>
+            <img src={chevronRight} className="h-24" />
+          </Button>
         </div>
         
-        <div className="grid grid-cols-4 grid-flow-row gap-4 ">
-              <div className="flex w-full row-span-1 col-span-2 ">
-                <img className="h-auto w-full rounded-lg" src={imgtemp2} />              
-                </div>
-              <div className="w-full col-span-1 ">
-                <img className="h-full w-full rounded-lg" src={imgtemp2} /> 
-               </div>
-              <div className="w-full col-span-1 ">
-                <img className="h-full w-full rounded-lg" src={imgtemp} />
-              </div>
-              <div className="w-full  col-span-1 ">
-                <img className="h-full w-full rounded-lg" src={imgtemp} />
-              </div>
-              <div className="w-full  col-span-1 ">
-                <img className="h-full w-full rounded-lg" src={imgtemp2} />
-              </div>
-              <div className="w-full  row-span-1 col-span-2 ">
-                <img className="h-auto w-full rounded-lg" src={imgtemp} />
-              </div>
-        </div>
-      </div>
-      <div className="h-auto bg-[#EB6753] p-5 xl:px-[15%]">
-        <div className="">
-          <div className="flex justify-between items-center py-10">
-            <h1 className="text-3xl font-medium text-white">Dự án nổi bật</h1>
-            <Link to={""} className="flex h-full">
-              <p className="text-base mr-2 text-white">Xem tất cả</p>
-              <img src={expandWhite} alt="expand top right " />
-            </Link>
-          </div>
-          <div className="flex gap-5 items-center justify-between ">
-            {
-              cards.map((item, index) =>(
-                <div className="flex-1">
-                  <CardReport 
-                  key={index} 
-                  img={item.img} 
-                  title={item.title} 
-                  price={item.price} 
-                  area={item.area} 
-                  address={item.address} 
-                  date={item.date} 
-                  vote={item.vote} 
-                >
-                  <div className={`flex justify-center items-center ${false? 'bg-[#E5F8E5] text-[#4CD04C]': 'bg-[#FFE5E5] text-[#FF0000]'}  max-w-max px-2 h-7 rounded-sm ml-3 mt-2`}>sdfd</div>
-                
-                </CardReport>
-                </div>
-                
-              ))
-            }
-          </div>
-          <ul className="flex px-72 justify-center items-center">
-            {Array(Math.ceil(card.length / 3)).fill(null).map((_, i) => (
-              <li
-                key={i}
-                className={`text-6xl cursor-pointer p-0  ${i === selectedTabIndex ? 'text-white' : 'text-gray-400'}`}
-                onClick={() => handleTabClick(i)}
-              >
-                .
-              </li>
-            ))}
-          </ul>
-        </div>
+          
       </div>
       </div>
     </div>
