@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import listRouter from "./routes/list.route.js";
 import cors from "cors";
 const app = express();
 
@@ -26,6 +27,7 @@ app.listen(3000, () => {
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/list", listRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

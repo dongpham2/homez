@@ -9,18 +9,17 @@ import { useState } from 'react'
 const Header = () => {
   const { currentUser } = useSelector((state: RootState) => state.user)
   const [visibleOption, setVisibleOption] = useState(false)
-
   const toggleVisibleOption = () => {
     setVisibleOption(!visibleOption)
   }
   return (
-    <div className="flex items-center justify-between p-4 border-b-2">
+    <div className="flex items-center justify-between border-b-2 p-4">
       <div className="flex items-center">
-        <Link to="/home" className="flex items-center mr-2">
-          <img src={logo} alt="logo" className="p-2 mr-2 rounded-2xl bg-orange-primary" />
+        <Link to="/home" className="mr-2 flex items-center">
+          <img src={logo} alt="logo" className="mr-2 rounded-2xl bg-orange-primary p-2" />
           <h3 className="text-base font-semibold sm:text-xl">homez</h3>
         </Link>
-        <ul className="items-center hidden gap-3 text-sm font-semibold cursor-pointer max-sm:hidden sm:text-base md:flex">
+        <ul className="hidden cursor-pointer items-center gap-3 text-sm font-semibold max-sm:hidden sm:text-base md:flex">
           <li>Nhà đất bán</li>
           <li>Nhà đất cho thuê</li>
           <li>Dự án</li>
@@ -29,7 +28,7 @@ const Header = () => {
       </div>
       <div className="flex gap-2">
         {Object.keys(currentUser).length ? (
-          <div className="flex items-center object-cover gap-8">
+          <div className="flex items-center gap-8 object-cover">
             <Button variant="ghost" size="sm">
               Đăng tin
             </Button>
@@ -38,13 +37,13 @@ const Header = () => {
                 <img
                   src={currentUser?.avatar}
                   alt="avatar"
-                  className="object-cover w-12 h-12 bg-no-repeat rounded-full"
+                  className="h-12 w-12 rounded-full bg-no-repeat object-cover"
                 />
               ) : (
                 <img
                   src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
                   alt="avatar"
-                  className="object-cover w-12 h-12 bg-no-repeat rounded-full"
+                  className="h-12 w-12 rounded-full bg-no-repeat object-cover"
                 />
               )}
             </div>

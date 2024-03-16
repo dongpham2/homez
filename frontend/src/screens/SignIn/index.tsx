@@ -1,9 +1,3 @@
-// import { ChangeEvent, FormEvent, useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { signInStart, signInSuccess, signInFailure } from '../../redux/user/userSlice.js'
-// import { RootState } from '~/redux/store.js'
-// import OAuth from '~/components/OAuth/index.js'
-
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
 import { ISignInRequest } from '~/types/user.type'
@@ -70,8 +64,8 @@ export default function SignIn() {
               }}
             />
           </div>
-          <p className="flex cursor-pointer justify-end font-medium">Quên mật khẩu?</p>
-          <div className="mt-3 flex justify-end">
+          <p className="flex justify-end font-medium cursor-pointer">Quên mật khẩu?</p>
+          <div className="flex justify-end mt-3">
             <Button type="submit" variant="primary" size="lg" className="w-56 text-white">
               Đăng nhập
             </Button>

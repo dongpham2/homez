@@ -1,5 +1,5 @@
 import bcryptjs from "bcryptjs";
-import User from "../model/user.modules.js";
+import User from "../model/user.model.js";
 import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
@@ -62,6 +62,7 @@ export const google = async (req, res, next) => {
       });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
+
       const { password: pass, ...rest } = newUser._doc;
       res
         .cookie("access_token", token, { httpOnly: true })
