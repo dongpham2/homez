@@ -36,6 +36,13 @@ body {
     --orange-primary: #e03c31;
     --text-primary: #1e1e1e;
     --gray-primary: #fafafa;
+    --gray-secondary: #f7f7f7;
+    --hover-orange-primary: #f19486;
+    --hover-orange-secondary: #fbe0dc;
+    --green-primary: #4CD04C;
+    --green-secondary: #E5F8E5;
+    --red-primary: #FF0000;
+    --red-secondary:#FFE5E5;
   }
 
   .dark {
