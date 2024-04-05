@@ -5,6 +5,10 @@ import { Button } from '~/components/Button'
 import { Input } from '~/components/Input'
 
 import { app } from '~/firebase'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
+import { useForm } from 'react-hook-form'
+import postValidate, { IPost, postInitValues } from '~/validate/post/config'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 interface FormData {
   imageUrls: string[]
@@ -18,6 +22,15 @@ const CreatePost = () => {
   const [imageUploadError, setImageUploadError] = useState<string | false>(false)
   const [uploading, setUploading] = useState<boolean>(false)
 
+    const form = useForm<IPost>({
+      mode: 'all',
+      defaultValues: postInitValues,
+      resolver: yupResolver(postValidate),
+    })
+
+    const onSubmit = async () => {
+      
+    }
   const storageImage = async (file: File) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app)
@@ -79,6 +92,34 @@ const CreatePost = () => {
 
   return (
     <div>
+      <Form {...form}>
+        <form className="flex flex-col gap-5" onSubmit={form.handleSubmit(onSubmit)}>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-base font-medium">Tiêu đề</h3>
+            <FormField
+              name="name"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Nhập tiêu đề..." {...field} />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+          </div>
+          <p className="flex cursor-pointer justify-end font-medium">Quên mật khẩu?</p>
+          <div className="mt-3 flex justify-end">
+            <Button type="submit" variant="primary" size="lg" className="w-56 text-white">
+              Đăng bài
+            </Button>
+          </div>
+        </form>
+      </Form>
       <Input
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
           setFiles(Array.from(e.target.files ?? []))
