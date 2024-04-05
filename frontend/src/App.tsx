@@ -63,7 +63,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'createPost',
-        element: <CreatePost />,
+        element: (
+          <ProtectedRoute>
+            <CreatePost />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

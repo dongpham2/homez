@@ -8,9 +8,18 @@ import AuthLayout from '~/Layout/AuthLayout'
 import { fetchSignIn, useAppDispatch } from '~/redux/user/userSlice'
 import { type ISignInRequest } from '~/types/user.type'
 import signinValidate, { signinInitValues } from '~/validate/signin/config'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
+interface IRootState {
+  user: {
+    success: boolean
+  }
+}
 export default function SignIn() {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const statusSignIn = useSelector((state: IRootState) => state?.user?.success)
 
   const form = useForm<ISignInRequest>({
     mode: 'all',
@@ -22,6 +31,11 @@ export default function SignIn() {
     try {
       const formData = form.getValues()
       await dispatch(fetchSignIn(formData))
+      if(statusSignIn) {
+        navigate("/")
+      }else {
+        navigate("/signin")
+      }
     } catch (error) {
       console.error('Error occurred during sign in:', error)
     }

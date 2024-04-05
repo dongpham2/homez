@@ -6,7 +6,6 @@ import { type ISignInUser, type IUser } from '~/types/user.type'
 
 import { type AppDispatch } from '../store'
 
-
 export const fetchSignUp = createAsyncThunk('accounts/fetchSignUp', async (dataUser: IUser) => {
   try {
     return await signUpApi(dataUser)
