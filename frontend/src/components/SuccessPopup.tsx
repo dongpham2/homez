@@ -10,7 +10,7 @@ interface ModalProps {
 const SuccessPopup = ({ title, isOpen, onClose }: ModalProps) => {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="px-18 py-19 flex h-44 items-center justify-center border-2 border-gray-primary bg-green-primary sm:max-w-[510px]">
+      <DialogContent className="px-18 py-19 bg-green-primary flex h-44 items-center justify-center border-2 border-gray-primary sm:max-w-[510px]">
         <img
           src={doneIcon}
           alt="doneIcon"

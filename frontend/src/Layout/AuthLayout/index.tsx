@@ -1,5 +1,6 @@
-import { ReactNode } from 'react'
+import { type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
+
 import backgroundImg from '~/assets/signin-bg.jpg'
 import OAuth from '~/components/OAuth'
 

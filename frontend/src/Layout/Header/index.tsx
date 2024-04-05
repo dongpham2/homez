@@ -1,10 +1,12 @@
-import { Button } from '~/components/Button'
-import logo from '../../assets/logoM.png'
-import { Link } from 'react-router-dom'
-import { RootState } from '~/redux/store'
-import { useSelector } from 'react-redux'
-import UserOptions from '../UserOptions'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import { Button } from '~/components/Button'
+import { type RootState } from '~/redux/store'
+
+import logo from '../../assets/logoM.png'
+import UserOptions from '../UserOptions'
 
 const Header = () => {
   const { currentUser } = useSelector((state: RootState) => state.user)
@@ -33,9 +35,9 @@ const Header = () => {
               Đăng tin
             </Button>
             <div onClick={toggleVisibleOption} className="cursor-pointer">
-              {currentUser?.avatar ? (
+              {currentUser.avatar ? (
                 <img
-                  src={currentUser?.avatar}
+                  src={currentUser.avatar}
                   alt="avatar"
                   className="h-12 w-12 rounded-full bg-no-repeat object-cover"
                 />

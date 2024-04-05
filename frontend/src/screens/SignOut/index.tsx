@@ -1,5 +1,5 @@
 const SignOut = () => {
-  return <div>SignOut</div>;
-};
+  return <div>SignOut</div>
+}
 
-export default SignOut;
+export default SignOut

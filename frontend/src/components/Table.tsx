@@ -1,10 +1,11 @@
 import * as React from 'react'
 
 import { cn } from '~/__generated__/utils'
-import convertDate from '~/utils/convertDate'
 
 import DatePicker from './DatePicker'
 import { Input } from './Input'
+
+import convertDate from '~/utils/convertDate'
 
 const Table = React.forwardRef<HTMLTableElement, React.HTMLAttributes<HTMLTableElement>>(
   ({ className, ...props }, ref) => {

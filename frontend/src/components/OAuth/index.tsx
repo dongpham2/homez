@@ -1,10 +1,12 @@
-import { GoogleAuthProvider, getAuth, signInWithPopup } from 'firebase/auth'
-import { app } from '../../firebase'
 // import { signInSuccess } from '~/redux/user/userSlice'
 import { useNavigate } from 'react-router-dom'
-import { Button } from '../Button'
+import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
+
 import googleIcon from '~/assets/google-icon.svg'
 import { fetchSignIn, useAppDispatch } from '~/redux/user/userSlice'
+
+import { app } from '../../firebase'
+import { Button } from '../Button'
 
 const OAuth = () => {
   const dispatch = useAppDispatch()
