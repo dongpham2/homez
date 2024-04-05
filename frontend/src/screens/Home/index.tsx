@@ -2,7 +2,7 @@ import banner from '../../assets/banner.png'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
 import News from '~/components/Cards/News'
-import LocationRealEstate from '~/components/Cards/Location'
+import Location from '~/components/Cards/Location'
 import ForYouHome from '~/components/Cards/ForYouHome'
 import Outstanding from '~/components/Cards/Outstanding'
 const Home = () => {
@@ -24,7 +24,7 @@ const Home = () => {
         </div>
 
         <div className="flex flex-col overflow-hidden bg-white p-5 pb-10 sm:w-auto xl:px-[15%]">
-          <LocationRealEstate />
+          <Location />
         </div>
 
         <div className="flex flex-col  overflow-hidden bg-[--orange-primary] p-5 sm:w-auto xl:px-[15%]">
