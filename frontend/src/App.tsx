@@ -1,15 +1,18 @@
 import { Suspense } from 'react'
-import { createBrowserRouter, Navigate, RouterProvider, useLocation } from 'react-router-dom'
-import NotFound from './screens/notFound'
-import Loading from './components/Loading'
-import SignIn from './screens/SignIn'
-import MainLayout from './Layout'
-import Home from './screens/Home'
-import About from './screens/About'
-import Profile from './screens/Profile'
-import SignUp from './screens/SignUp'
-import { RootState } from './redux/store'
 import { useSelector } from 'react-redux'
+import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
+
+import CreatePost from '~/screens/CreatePost'
+
+import Loading from './components/Loading'
+import MainLayout from './Layout'
+import { type RootState } from './redux/store'
+import About from './screens/About'
+import Home from './screens/Home'
+import NotFound from './screens/notFound'
+import Profile from './screens/Profile'
+import SignIn from './screens/SignIn'
+import SignUp from './screens/SignUp'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   // const location = useLocation()
@@ -57,6 +60,10 @@ const router = createBrowserRouter([
             <Profile />,
           </ProtectedRoute>
         ),
+      },
+      {
+        path: 'createPost',
+        element: <CreatePost />,
       },
     ],
   },

@@ -1,55 +1,15 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
-import AuthLayout from '~/Layout/AuthLayout'
+import { yupResolver } from '@hookform/resolvers/yup'
+
 import { Button } from '~/components/Button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
+import AuthLayout from '~/Layout/AuthLayout'
 import { fetchSignUp, useAppDispatch } from '~/redux/user/userSlice'
-import { ISignUpRequest } from '~/types/user.type'
+import { type ISignUpRequest } from '~/types/user.type'
 import signupValidate, { signupInitValues } from '~/validate/signup/config'
 
 const SignUp = () => {
-  // const [formData, setFormData] = useState({})
-  // const [error, setError] = useState(null)
-  // const [loading, setLoading] = useState(false)
-  // const navigate = useNavigate()
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.id]: e.target.value,
-  //   })
-  // }
-  // const handleSubmit = async (e: FormEvent) => {
-  //   e.preventDefault()
-  //   try {
-  //     setLoading(true)
-  //     const res = await fetch('/api/auth/signup', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     })
-  //     const data = await res.json()
-  //     console.log(data)
-  //     if (data.success === false) {
-  //       setLoading(false)
-  //       setError(data.message)
-  //       return
-  //     }
-  //     setLoading(false)
-  //     setError(null)
-  //     navigate('/signin')
-  //   } catch (error) {
-  //     setLoading(false)
-  //     // setError(error.message);
-  //   }
-  // }
-  // const form = useForm<LoginRequest>({
-  //   mode: 'all',
-  //   defaultValues: signInInitValues,
-  //   resolver: yupResolver(signinValidate),
-  // })
   const dispatch = useAppDispatch()
 
   const form = useForm<ISignUpRequest>({
@@ -57,10 +17,13 @@ const SignUp = () => {
     defaultValues: signupInitValues,
     resolver: yupResolver(signupValidate),
   })
-  const onSubmit = () => {
-    const formData = form.getValues()
-    console.log('formData', formData)
-    dispatch(fetchSignUp(formData))
+  const onSubmit = async () => {
+    try {
+      const formData = form.getValues()
+      await dispatch(fetchSignUp(formData))
+    } catch (error) {
+      console.error('Error occurred during sign up:', error)
+    }
   }
   return (
     <AuthLayout funcTitle="Sign In" pageTitle="Sign Up" toPage="/signin">

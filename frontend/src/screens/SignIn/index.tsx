@@ -1,63 +1,31 @@
-// import { ChangeEvent, FormEvent, useState } from 'react'
-// import { Link, useNavigate } from 'react-router-dom'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { signInStart, signInSuccess, signInFailure } from '../../redux/user/userSlice.js'
-// import { RootState } from '~/redux/store.js'
-// import OAuth from '~/components/OAuth/index.js'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
+import { Button } from '~/components/Button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
-import { ISignInRequest } from '~/types/user.type'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
 import AuthLayout from '~/Layout/AuthLayout'
-import { Button } from '~/components/Button'
-import signinValidate, { signinInitValues } from '~/validate/signin/config'
 import { fetchSignIn, useAppDispatch } from '~/redux/user/userSlice'
+import { type ISignInRequest } from '~/types/user.type'
+import signinValidate, { signinInitValues } from '~/validate/signin/config'
 
 export default function SignIn() {
   const dispatch = useAppDispatch()
-  // const navigate = useNavigate()
-  // const dispatch = useDispatch()
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setFormData({
-  //     ...formData,
-  //     [e.target.id]: e.target.value,
-  //   })
-  // }
-  // const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault()
-  //   try {
-  //     dispatch(signInStart())
-  //     const res = await fetch('/api/auth/signin', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(formData),
-  //     })
-  //     const data = await res.json()
-  //     if (data.success === false) {
-  //       dispatch(signInFailure(data.message))
-  //       return
-  //     }
-  //     dispatch(signInSuccess(data))
-  //     navigate('/home')
-  //   } catch (error) {
-  //     dispatch(signInFailure(error))
-  //   }
-  // }
+
   const form = useForm<ISignInRequest>({
     mode: 'all',
     defaultValues: signinInitValues,
     resolver: yupResolver(signinValidate),
   })
 
-  const onSubmit = () => {
-    const formData = form.getValues()
-    dispatch(fetchSignIn(formData))
+  const onSubmit = async () => {
+    try {
+      const formData = form.getValues()
+      await dispatch(fetchSignIn(formData))
+    } catch (error) {
+      console.error('Error occurred during sign in:', error)
+    }
   }
-
   return (
     <AuthLayout label="No Account?" funcTitle="Sign Up" pageTitle="Sign In" toPage="/signup">
       <Form {...form}>

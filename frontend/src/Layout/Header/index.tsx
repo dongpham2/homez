@@ -1,15 +1,16 @@
-import { Button } from '~/components/Button'
-import logo from '../../assets/logoM.png'
-import { Link } from 'react-router-dom'
-import { RootState } from '~/redux/store'
-import { useSelector } from 'react-redux'
-import UserOptions from '../UserOptions'
 import { useState } from 'react'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+
+import { Button } from '~/components/Button'
+import { type RootState } from '~/redux/store'
+
+import logo from '../../assets/logoM.png'
+import UserOptions from '../UserOptions'
 
 const Header = () => {
   const { currentUser } = useSelector((state: RootState) => state.user)
   const [visibleOption, setVisibleOption] = useState(false)
-
   const toggleVisibleOption = () => {
     setVisibleOption(!visibleOption)
   }
@@ -28,17 +29,25 @@ const Header = () => {
         </ul>
       </div>
       <div className="flex gap-2">
-        {currentUser ? (
+        {Object.keys(currentUser).length ? (
           <div className="flex items-center gap-8 object-cover">
             <Button variant="ghost" size="sm">
               Đăng tin
             </Button>
             <div onClick={toggleVisibleOption} className="cursor-pointer">
-              <img
-                src={currentUser?.avatar}
-                alt="avatar"
-                className="h-14 w-14 rounded-full bg-no-repeat object-cover"
-              />
+              {currentUser.avatar ? (
+                <img
+                  src={currentUser.avatar}
+                  alt="avatar"
+                  className="h-12 w-12 rounded-full bg-no-repeat object-cover"
+                />
+              ) : (
+                <img
+                  src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                  alt="avatar"
+                  className="h-12 w-12 rounded-full bg-no-repeat object-cover"
+                />
+              )}
             </div>
             {visibleOption ? <UserOptions /> : ''}
           </div>
