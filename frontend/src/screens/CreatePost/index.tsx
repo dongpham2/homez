@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 
 import { Button } from '~/components/Button'
@@ -9,6 +9,8 @@ import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } 
 import { useForm } from 'react-hook-form'
 import postValidate, { IPost, postInitValues } from '~/validate/post/config'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '~/components/Select'
+import CityData from "~/data/dataCity"
 
 interface FormData {
   imageUrls: string[]
@@ -22,7 +24,23 @@ const CreatePost = () => {
   const [imageUploadError, setImageUploadError] = useState<string | false>(false)
   const [uploading, setUploading] = useState<boolean>(false)
 
-    const form = useForm<IPost>({
+  const [selectedProvince, setSelectedProvince] = useState<string | null>(null)
+  const [districts, setDistricts] = useState<any[]>([])
+
+  const handleProvinceChange = (selectedValue: string | null) => {
+    setSelectedProvince(selectedValue)
+  }
+ 
+  useEffect(() => {
+    if (selectedProvince) {
+      const filteredDistricts = CityData.district.filter((district) => district.idProvince === selectedProvince)
+      setDistricts(filteredDistricts)
+    } else {
+      setDistricts([])
+    }
+  }, [selectedProvince]) 
+  
+  const form = useForm<IPost>({
       mode: 'all',
       defaultValues: postInitValues,
       resolver: yupResolver(postValidate),
@@ -112,7 +130,104 @@ const CreatePost = () => {
               }}
             />
           </div>
-          <p className="flex cursor-pointer justify-end font-medium">Quên mật khẩu?</p>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-base font-medium">Nội dung bài đăng</h3>
+            <FormField
+              name="description"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Nhập nội dung..." {...field} />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-base font-medium">Chọn tỉnh, thành phố</h3>
+            <FormField
+              name="description"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormControl>
+                      <Select defaultValue={field.value} onValueChange={handleProvinceChange}>
+                        <SelectTrigger className="h-14 w-full border border-input bg-white">
+                          <SelectValue placeholder="Select" className="px-2 text-base font-medium" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {CityData.province.map((province) => (
+                              <SelectItem key={province.value} value={province.value}>
+                                {province.name}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-base font-medium">Chọn quận, huyện</h3>
+            <FormField
+              name="description"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormControl>
+                      <Select defaultValue={field.value} onValueChange={field.onChange}>
+                        <SelectTrigger className="h-14 w-full border border-input bg-white">
+                          <SelectValue placeholder="Chọn quận/huyện" className="px-2 text-base font-medium" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            {districts.map((district) => (
+                              <SelectItem key={district.value} value={district.value}>
+                                {district.name}
+                              </SelectItem>
+                            ))}
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <h3 className="text-base font-medium">Địa chỉ</h3>
+            <FormField
+              name="description"
+              control={form.control}
+              render={({ field }) => {
+                return (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Nhập địa chỉ (vd: 112 Hà Huy Tập)" {...field} />
+                    </FormControl>
+                    <FormDescription />
+                    <FormMessage />
+                  </FormItem>
+                )
+              }}
+            />
+          </div>
           <div className="mt-3 flex justify-end">
             <Button type="submit" variant="primary" size="lg" className="w-56 text-white">
               Đăng bài

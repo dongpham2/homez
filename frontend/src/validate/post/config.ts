@@ -5,14 +5,18 @@ import messages from './messages'
 export interface IPost {
   name: string
   description: string
+  city?: string
+  district?: string
+  wards?: string
+  street?: string
+  price?: number
+  unit?: string
   address?: string
-  regularPrice?: number
-  discountPrice?: number
+  area?: number
   bathrooms?: number
+  bedRooms?: number
   furnished?: boolean
-  parking?: boolean
-  type?: string
-  offer?: boolean
+  typeofrealestate?: string
   userRef?: string
 }
 
@@ -20,14 +24,18 @@ const postValidate = yup
   .object({
     name: yup.string().required(messages.required.name),
     description: yup.string().required(messages.required.description),
+    city: yup.string(),
+    district: yup.string(),
+    wards: yup.string(),
+    street: yup.string(),
+    price: yup.number().integer().positive(),
+    unit: yup.string(),
     address: yup.string(),
-    regularPrice: yup.number(),
-    discountPrice: yup.number(),
+    area: yup.number().integer().positive(),
     bathrooms: yup.number().integer().positive(),
+    bedRooms: yup.number().integer().positive(),
     furnished: yup.boolean(),
-    parking: yup.boolean(),
-    type: yup.string(),
-    offer: yup.boolean(),
+    typeofrealestate: yup.string(),
     userRef: yup.string(),
   })
   .required()
@@ -35,14 +43,18 @@ const postValidate = yup
 export const postInitValues: IPost = {
   name: '',
   description: '',
+  city: '',
+  district: '',
+  wards: '',
+  street: '',
+  price: 0,
+  unit: '',
   address: '',
-  regularPrice: 100,
-  discountPrice: 10,
+  area: 0,
   bathrooms: 0,
+  bedRooms: 0,
   furnished: false,
-  parking: false,
-  type: '',
-  offer: false,
+  typeofrealestate: '',
   userRef: '',
 }
 
