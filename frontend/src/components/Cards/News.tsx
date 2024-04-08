@@ -4,7 +4,6 @@ import { news } from '~/data/fakeData'
 const News = () => {
   return (
     <div>
-      <h1 className="mb-10 text-base font-medium sm:text-3xl">Tin tức bất động sản</h1>
       <div className=" m-5 overflow-visible">
         <Sliders>
           {news.map((item, index) => (

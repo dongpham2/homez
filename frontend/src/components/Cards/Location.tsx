@@ -5,9 +5,6 @@ import Sliders from '../Slider'
 const LocationRealEstate = () => {
   return (
     <div>
-      <div className="mb-10 flex items-center justify-center">
-        <h1 className="py-5 text-base font-medium sm:text-3xl">Bất động sản theo địa điểm</h1>
-      </div>
       <div className="overflow-visible">
         <div className="flex-row sm:hidden ">
           <Sliders>
