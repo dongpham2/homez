@@ -5,6 +5,7 @@
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
+  overflow-y: scroll;
 }
 
 @layer base {

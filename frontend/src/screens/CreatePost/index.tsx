@@ -16,6 +16,21 @@ interface FormData {
   imageUrls: string[]
 }
 
+const unitValue = [
+  {
+    value: 1,
+    name: 'tỷ',
+  },
+  {
+    value: 2,
+    name: 'm2',
+  },
+  {
+    value: 3,
+    name: 'thỏa thuận',
+  },
+]
+
 const CreatePost = () => {
   const [files, setFiles] = useState<File[]>([])
   const [formData, setFormData] = useState<FormData>({
@@ -148,85 +163,260 @@ const CreatePost = () => {
               }}
             />
           </div>
-          <div className="flex flex-col gap-2">
-            <h3 className="text-base font-medium">Chọn tỉnh, thành phố</h3>
-            <FormField
-              name="description"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormControl>
-                      <Select defaultValue={field.value} onValueChange={handleProvinceChange}>
-                        <SelectTrigger className="h-14 w-full border border-input bg-white">
-                          <SelectValue placeholder="Select" className="px-2 text-base font-medium" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            {CityData.province.map((province) => (
-                              <SelectItem key={province.value} value={province.value}>
-                                {province.name}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormDescription />
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
+          <div className="flex items-center gap-2">
+            <div className="w-full">
+              <h3 className="text-base font-medium">Chọn tỉnh, thành phố</h3>
+              <FormField
+                name="city"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Select defaultValue={field.value} onValueChange={handleProvinceChange}>
+                          <SelectTrigger className="h-14 w-full border border-input bg-white">
+                            <SelectValue placeholder="Select" className="px-2 text-base font-medium" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {CityData.province.map((province) => (
+                                <SelectItem key={province.value} value={province.value}>
+                                  {province.name}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
+            <div className="w-full">
+              <h3 className="text-base font-medium">Chọn quận, huyện</h3>
+              <FormField
+                name="district"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Select defaultValue={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger className="h-14 w-full border border-input bg-white">
+                            <SelectValue placeholder="Chọn quận/huyện" className="px-2 text-base font-medium" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {districts.map((district) => (
+                                <SelectItem key={district.value} value={district.value}>
+                                  {district.name}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <h3 className="text-base font-medium">Chọn quận, huyện</h3>
-            <FormField
-              name="description"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormControl>
-                      <Select defaultValue={field.value} onValueChange={field.onChange}>
-                        <SelectTrigger className="h-14 w-full border border-input bg-white">
-                          <SelectValue placeholder="Chọn quận/huyện" className="px-2 text-base font-medium" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectGroup>
-                            {districts.map((district) => (
-                              <SelectItem key={district.value} value={district.value}>
-                                {district.name}
-                              </SelectItem>
-                            ))}
-                          </SelectGroup>
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormDescription />
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
+          <div className="flex items-center gap-2">
+            <div className="w-full">
+              <h3 className="text-base font-medium">Phường, xã</h3>
+              <FormField
+                name="wards"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Select defaultValue={field.value} onValueChange={handleProvinceChange}>
+                          <SelectTrigger className="h-14 w-full border border-input bg-white">
+                            <SelectValue placeholder="Select" className="px-2 text-base font-medium" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {CityData.province.map((province) => (
+                                <SelectItem key={province.value} value={province.value}>
+                                  {province.name}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
+            <div className="w-full">
+              <h3 className="text-base font-medium">Đường, phố</h3>
+              <FormField
+                name="street"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Select defaultValue={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger className="h-14 w-full border border-input bg-white">
+                            <SelectValue placeholder="Chọn quận/huyện" className="px-2 text-base font-medium" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {districts.map((district) => (
+                                <SelectItem key={district.value} value={district.value}>
+                                  {district.name}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
           </div>
-          <div className="flex flex-col gap-2">
-            <h3 className="text-base font-medium">Địa chỉ</h3>
-            <FormField
-              name="description"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormControl>
-                      <Input placeholder="Nhập địa chỉ (vd: 112 Hà Huy Tập)" {...field} />
-                    </FormControl>
-                    <FormDescription />
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
+          <div className="flex items-center gap-2">
+            <div className="w-full">
+              <h3 className="text-base font-medium">Diện tích</h3>
+              <FormField
+                name="area"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Nhập diện tích (vd: 100)" {...field} />
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
+            <div className="w-[30%]">
+              <h3 className="text-base font-medium">Đơn vị</h3>
+              <FormField
+                name="unit"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Select defaultValue={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger className="h-14 w-full border border-input bg-white">
+                            <SelectValue placeholder="Đơn vị" className="px-2 text-base font-medium" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectGroup>
+                              {unitValue.map((unit) => (
+                                <SelectItem key={unit.value} value={unit.name}>
+                                  {unit.name}
+                                </SelectItem>
+                              ))}
+                            </SelectGroup>
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-full">
+              <h3 className="text-base font-medium">Số phòng ngủ</h3>
+              <FormField
+                name="bedRooms"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Nhập mức giá (vd: 1000000)" {...field} />
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
+            <div className="w-full">
+              <h3 className="text-base font-medium">Số phòng tắm</h3>
+              <FormField
+                name="bathrooms"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Nhập địa chỉ (vd: 112 Hà Huy Tập)" {...field} />
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-full">
+              <h3 className="text-base font-medium">Nội thất</h3>
+              <FormField
+                name="furnished"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        {/* <Input placeholder="Nhập địa chỉ (vd: 112 Hà Huy Tập)" {...field} /> */}
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
+            <div className="w-full">
+              <h3 className="text-base font-medium">Loại bất động sản</h3>
+              <FormField
+                name="typeofrealestate"
+                control={form.control}
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormControl>
+                        <Input placeholder="Nhập địa chỉ (vd: 112 Hà Huy Tập)" {...field} />
+                      </FormControl>
+                      <FormDescription />
+                      <FormMessage />
+                    </FormItem>
+                  )
+                }}
+              />
+            </div>
           </div>
           <div className="mt-3 flex justify-end">
             <Button type="submit" variant="primary" size="lg" className="w-56 text-white">
