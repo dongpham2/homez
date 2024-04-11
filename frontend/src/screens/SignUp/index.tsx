@@ -22,7 +22,7 @@ const SignUp = () => {
       const formData = form.getValues()
       await dispatch(fetchSignUp(formData))
     } catch (error) {
-      console.error('Error occurred during sign up:', error)
+      throw new Error()
     }
   }
   return (

@@ -35,9 +35,9 @@ const Header = () => {
               Đăng tin
             </Button>
             <div onClick={toggleVisibleOption} className="cursor-pointer">
-              {currentUser.avatar ? (
+              {currentUser.data?.avatar ? (
                 <img
-                  src={currentUser.avatar}
+                  src={currentUser.data?.avatar}
                   alt="avatar"
                   className="h-12 w-12 rounded-full bg-no-repeat object-cover"
                 />

@@ -1,36 +1,52 @@
 import { useDispatch } from 'react-redux'
 import { createAsyncThunk, createSlice, isRejectedWithValue } from '@reduxjs/toolkit'
 
-import { signInApi, signInWithGoogle, signout, signUpApi } from '~/services/authService'
 import { type ISignInUser, type IUser } from '~/types/user.type'
 
+import http from '~/axiosClient'
 import { type AppDispatch } from '../store'
 
-export const fetchSignUp = createAsyncThunk('accounts/fetchSignUp', async (dataUser: IUser) => {
+
+export const fetchSignUp = createAsyncThunk('accounts/fetchSignUp', async (dataUser: IUser, thunkAPI) => {
   try {
-    return await signUpApi(dataUser)
+    const response = await http.post<IUser>('/api/auth/signup', dataUser, {
+      signal: thunkAPI.signal,
+    })
+    return response.data
   } catch (error) {
     return isRejectedWithValue(error)
   }
 })
 
-export const fetchSignIn = createAsyncThunk('auth/fetchSignIn', (dataUser: ISignInUser) => {
+export const fetchSignIn = createAsyncThunk('auth/fetchSignIn', async (dataUser: ISignInUser, thunkAPI) => {
   try {
-    signInApi(dataUser)
+    const response = await http.post<ISignInUser>('/api/auth/signin', dataUser, {
+      signal: thunkAPI.signal,
+    })
+    return response.data
   } catch (error) {
     return isRejectedWithValue(error)
   }
 })
-export const fetchSignInWithGoogle = createAsyncThunk('auth/fetchSignInWithGoogle', (dataUser: IUser) => {
-  try {
-    signInWithGoogle(dataUser)
-  } catch (error) {
-    return isRejectedWithValue(error)
-  }
-})
+
+export const fetchSignInWithGoogle = createAsyncThunk(
+  'auth/fetchSignInWithGoogle',
+  async (dataUser: IUser, thunkAPI) => {
+    try {
+      const response = await http.post<IUser>('/api/auth/google', dataUser, {
+        signal: thunkAPI.signal,
+      })
+      return response.data
+    } catch (error) {
+      return isRejectedWithValue(error)
+    }
+  },
+)
+
 export const fetchSignOut = createAsyncThunk('auth/fetchSignOut', async () => {
   try {
-    await signout()
+    const response = await http.post<IUser>('/api/auth/signout')
+    return response.data
   } catch (error) {
     return isRejectedWithValue(error)
   }
@@ -55,12 +71,11 @@ const userSlice = createSlice({
         state.status = 'pending'
       })
       .addCase(fetchSignUp.fulfilled, (state, action) => {
-        const resData = action.meta.arg
-        if (resData) {
+        if (action.payload) {
           state.status = 'idle'
           state.success = true
           state.message = ''
-          state.currentUser = resData
+          state.currentUser = action.payload
         } else {
           state.status = 'idle'
           state.success = false
@@ -71,12 +86,10 @@ const userSlice = createSlice({
         state.status = 'pending'
       })
       .addCase(fetchSignIn.fulfilled, (state, action) => {
-        const resData = action.meta.arg
-        if (resData) {
-          state.status = 'idle'
+        if (action.payload) {
+          state.currentUser = action.payload
           state.success = true
-          state.message = ''
-          state.currentUser = resData
+          state.status = 'success'
         } else {
           state.status = 'idle'
           state.message = 'Tài khoản hoặc mật khẩu không chính xác'
@@ -87,13 +100,10 @@ const userSlice = createSlice({
         state.status = 'pending'
       })
       .addCase(fetchSignInWithGoogle.fulfilled, (state, action) => {
-        const resData = action.meta.arg
-        console.log('google resData', resData)
-        if (resData) {
-          state.status = 'idle'
+        if (action.payload) {
+          state.currentUser = action.payload
           state.success = true
-          state.message = ''
-          state.currentUser = resData
+          state.status = 'success'
         } else {
           state.status = 'idle'
           state.message = 'Tài khoản lỗi'
@@ -112,7 +122,6 @@ const userSlice = createSlice({
   },
 })
 
-// export const { signInStart, signInSuccess, signInFailure } = userSlice.actions
 export default userSlice.reducer
 
 export const useAppDispatch = () => useDispatch<AppDispatch>()

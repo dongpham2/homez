@@ -15,13 +15,9 @@ import SignIn from './screens/SignIn'
 import SignUp from './screens/SignUp'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  // const location = useLocation()
   const currentUser = useSelector((state: RootState) => state.user)
-  // const getUserRecoil = useRecoilValue(userState) as User['user'] | null
 
-  // const path = location.pathname
-
-  if (currentUser && !currentUser) {
+  if (currentUser) {
     return <Navigate to="/signin" replace />
   }
 

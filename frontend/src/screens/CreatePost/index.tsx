@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 
 import { Button } from '~/components/Button'
-import { Input } from '~/components/Input'
-
-import { app } from '~/firebase'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
-import { useForm } from 'react-hook-form'
-import postValidate, { IPost, postInitValues } from '~/validate/post/config'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { Input } from '~/components/Input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '~/components/Select'
-import CityData from "~/data/dataCity"
+import CityData from '~/data/dataCity'
+import postValidate, { type IPost, postInitValues } from '~/validate/post/config'
+
+import app from '~/firebase'
 
 interface FormData {
   imageUrls: string[]
@@ -45,7 +45,7 @@ const CreatePost = () => {
   const handleProvinceChange = (selectedValue: string | null) => {
     setSelectedProvince(selectedValue)
   }
- 
+
   useEffect(() => {
     if (selectedProvince) {
       const filteredDistricts = CityData.district.filter((district) => district.idProvince === selectedProvince)
@@ -53,17 +53,15 @@ const CreatePost = () => {
     } else {
       setDistricts([])
     }
-  }, [selectedProvince]) 
-  
-  const form = useForm<IPost>({
-      mode: 'all',
-      defaultValues: postInitValues,
-      resolver: yupResolver(postValidate),
-    })
+  }, [selectedProvince])
 
-    const onSubmit = async () => {
-      
-    }
+  const form = useForm<IPost>({
+    mode: 'all',
+    defaultValues: postInitValues,
+    resolver: yupResolver(postValidate),
+  })
+
+  const onSubmit = async () => {}
   const storageImage = async (file: File) => {
     return new Promise((resolve, reject) => {
       const storage = getStorage(app)
