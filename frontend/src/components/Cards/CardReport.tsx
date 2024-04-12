@@ -1,5 +1,5 @@
 import { Card, CardDescription, CardFooter, CardTitle } from '../Card'
-import { Button } from '../Button'
+import { Button } from '~/components/Button'
 import heartOutline from '~/assets/icons/heartOutline.icon.svg'
 import heartOutlineFill from '~/assets/icons/heartOutlineFill.icon.svg'
 import { useState } from 'react'

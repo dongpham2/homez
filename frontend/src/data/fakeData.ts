@@ -1,4 +1,4 @@
-export const cardOutstanding = [
+export const dataOutstanding = [
   {
     img: 'https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg',
     title: 'Nhà của Đông Nhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của Đông',
@@ -74,7 +74,7 @@ export const cardOutstanding = [
   },
 ]
 
-export const cardForYou = [
+export const dataForYou = [
   {
     img: 'https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg',
     title: 'Nhà của Đông Nhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của ĐôngNhà của Đông',
@@ -159,7 +159,8 @@ export const cardForYou = [
   },
 ]
 
-export const cardLocation = [
+export const dataLocation = [
+  //max = 6
   {
     img: 'https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg',
     title: 'Đà Nẵng',
@@ -192,7 +193,7 @@ export const cardLocation = [
   },
 ]
 
-export const news = [
+export const dataNews = [
   {
     img: 'https://assetsio.gnwcdn.com/minecraft-house-ideas-ultimate-survival-house.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp',
     title: 'Những điều quan trọng cần lưu ý trong luật bất động sản mới sắp được ban hành vào tháng 7/2024',

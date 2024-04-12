@@ -24,3 +24,9 @@ export interface ICardLocation {
   imageUrls: string
   isSmall: boolean
 }
+export interface INews {
+  title: string
+  imageUrls: string
+  content?: string
+  date?: Date | string
+}
