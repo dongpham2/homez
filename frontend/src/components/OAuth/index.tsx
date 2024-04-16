@@ -31,7 +31,7 @@ const OAuth = () => {
       dispatch(fetchSignIn(data))
       navigate('/')
     } catch (error) {
-      throw new Error(error)
+      throw new Error()
     }
   }
   return (

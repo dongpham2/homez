@@ -31,13 +31,15 @@ const Header = () => {
       <div className="flex gap-2">
         {Object.keys(currentUser).length ? (
           <div className="flex items-center gap-8 object-cover">
-            <Button variant="ghost" size="sm">
-              Đăng tin
-            </Button>
+            <Link to="/createPost">
+              <Button variant="ghost" size="sm">
+                Đăng tin
+              </Button>
+            </Link>
             <div onClick={toggleVisibleOption} className="cursor-pointer">
-              {currentUser.data?.avatar ? (
+              {currentUser?.data?.avatar ? (
                 <img
-                  src={currentUser.data?.avatar}
+                  src={currentUser?.data?.avatar}
                   alt="avatar"
                   className="h-12 w-12 rounded-full bg-no-repeat object-cover"
                 />

@@ -17,7 +17,7 @@ import SignUp from './screens/SignUp'
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const currentUser = useSelector((state: RootState) => state.user)
 
-  if (currentUser) {
+  if (currentUser && !currentUser) {
     return <Navigate to="/signin" replace />
   }
 
