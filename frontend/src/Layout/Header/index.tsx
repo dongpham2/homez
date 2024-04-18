@@ -16,7 +16,7 @@ const Header = () => {
   }
   return (
     <div className="flex items-center justify-between border-b-2 p-4">
-      {/* <div className="flex items-center">
+      <div className="flex items-center">
         <Link to="/home" className="mr-2 flex items-center">
           <img src={logo} alt="logo" className="mr-2 rounded-2xl bg-orange-primary p-2" />
           <h3 className="text-base font-semibold sm:text-xl">homez</h3>
@@ -64,7 +64,7 @@ const Header = () => {
             </Button>
           </>
         )}
-      </div> */}
+      </div>
     </div>
   )
 }

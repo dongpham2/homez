@@ -25,7 +25,7 @@ const Home = () => {
 
         <div className="flex flex-col overflow-hidden bg-[--gray-secondary] p-5 pb-10 sm:w-auto xl:px-[15%]">
           <div className="mb-10 flex justify-between py-5 sm:items-center">
-            <h1 className="text-xl font-medium sm:text-3xl">Dành cho bạn</h1>
+            <h3 className="text-xl font-medium sm:text-3xl">Dành cho bạn</h3>
             <Link to={''} className="flex h-full">
               <p className="mr-2 text-base">Xem tất cả</p>
               <img src={expandTopRight} alt="expand top right" />
@@ -34,22 +34,20 @@ const Home = () => {
           <div className="m-5 overflow-visible">
             <Sliders>
               {dataForYou.map((item, index) => (
-                <div className="p-2">
-                  <Link to="">
-                    <CardReport
-                      key={index}
-                      imageUrls={item.img}
-                      name={item.title}
-                      regularPrice={item.price}
-                      area={item.area}
-                      address={item.address}
-                      date={item.date}
-                      save={item.vote}
-                      isOpen
-                      isOutStanding={false}
-                    />
-                  </Link>
-                </div>
+                <Link to="" className="p-2">
+                  <CardReport
+                    key={index}
+                    imageUrls={item.img}
+                    name={item.title}
+                    regularPrice={item.price}
+                    area={item.area}
+                    address={item.address}
+                    date={item.date}
+                    save={item.vote}
+                    isOpen
+                    isOutStanding={false}
+                  />
+                </Link>
               ))}
             </Sliders>
           </div>
@@ -57,21 +55,21 @@ const Home = () => {
 
         <div className="flex flex-col overflow-hidden bg-white p-5 pb-10 sm:w-auto xl:px-[15%]">
           <div className="mb-10 flex items-center justify-center">
-            <h1 className="py-5 text-base font-medium sm:text-3xl">Bất động sản theo địa điểm</h1>
+            <h3 className="py-5 text-base font-medium sm:text-3xl">Bất động sản theo địa điểm</h3>
           </div>
           <div className="overflow-visible">
-            <div className="flex-row sm:hidden ">
+            <div className="flex-row sm:hidden">
               <Sliders>
                 {dataLocation.map((item, index) => (
-                  <div className="p-2">
+                  <Link to="" className="p-2">
                     <CardLocation
                       key={index}
-                      isSmall={false}
+                      isSmall={true}
                       imageUrls={item.img}
                       name={item.title}
                       subTitle={item.subTitle}
                     />
-                  </div>
+                  </Link>
                 ))}
               </Sliders>
             </div>
@@ -91,45 +89,41 @@ const Home = () => {
 
         <div className="flex flex-col  overflow-hidden bg-[--orange-primary] p-5 sm:w-auto xl:px-[15%]">
           <div className="mb-10 flex items-center justify-between py-5">
-            <h1 className="text-base font-medium text-white sm:text-3xl">Dự án nổi bật</h1>
-            <Link to={''} className="flex h-full">
+            <h3 className="text-base font-medium text-white sm:text-3xl">Dự án nổi bật</h3>
+            <Link to="" className="flex h-full">
               <p className="mr-2 text-base text-white">Xem tất cả</p>
-              <img src={expandWhite} alt="expand top right " />
+              <img src={expandWhite} alt="expand top right" />
             </Link>
           </div>
           <div className="m-5 overflow-visible">
             <Sliders>
               {dataOutstanding.map((item, index) => (
-                <div className="p-2">
-                  <Link to="">
-                    <CardReport
-                      key={index}
-                      imageUrls={item.img}
-                      name={item.title}
-                      regularPrice={item.price}
-                      area={item.area}
-                      address={item.address}
-                      date=""
-                      save
-                      isOpen={item.isOpen}
-                      isOutStanding
-                    />
-                  </Link>
-                </div>
+                <Link to="" className="p-2">
+                  <CardReport
+                    key={index}
+                    imageUrls={item.img}
+                    name={item.title}
+                    regularPrice={item.price}
+                    area={item.area}
+                    address={item.address}
+                    date=""
+                    save
+                    isOpen={item.isOpen}
+                    isOutStanding
+                  />
+                </Link>
               ))}
             </Sliders>
           </div>
         </div>
 
         <div className=" relative h-full max-h-[500px] overflow-hidden bg-white p-5 pb-10 sm:w-auto xl:px-[15%]">
-          <h1 className="mb-10 text-base font-medium sm:text-3xl">Tin tức bất động sản</h1>
+          <h3 className="mb-10 text-base font-medium sm:text-3xl">Tin tức bất động sản</h3>
           <div className=" m-5 overflow-visible">
             <Sliders>
               {dataNews.map((item, index) => (
-                <Link to="">
-                  <div key={index} className="p-2">
-                    <CardNews title={item.title} imageUrls={item.img} />
-                  </div>
+                <Link to="" className="p-2">
+                  <CardNews key={index} title={item.title} imageUrls={item.img} />
                 </Link>
               ))}
             </Sliders>
