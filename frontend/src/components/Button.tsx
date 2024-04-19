@@ -17,6 +17,7 @@ const buttonVariants = cva('text-base text-black rounded-sm font-semibold', {
       sm: 'lg:px-4 lg:py-3 sm:px-3 sm:py-2',
       lg: 'rounded-xl py-5 px-8',
       xl: 'py-6 px-24',
+      mdIcon: 'px-4 lg:px-4 lg:py-3 sm:px-3 sm:py-2',
     },
   },
   defaultVariants: {

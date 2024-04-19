@@ -38,17 +38,21 @@ const Header = () => {
             </Link>
             <div onClick={toggleVisibleOption} className="cursor-pointer">
               {currentUser.avatar ? (
-                <img
-                  src={currentUser.avatar}
-                  alt="avatar"
-                  className="h-12 w-12 rounded-full bg-no-repeat object-cover"
-                />
+                <>
+                  <img
+                    src={currentUser.avatar}
+                    alt="avatar"
+                    className="h-12 w-12 rounded-full bg-no-repeat object-cover"
+                  />
+                </>
               ) : (
-                <img
-                  src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
-                  alt="avatar"
-                  className="h-12 w-12 rounded-full bg-no-repeat object-cover"
-                />
+                <>
+                  <img
+                    src="https://media.istockphoto.com/id/1337144146/vector/default-avatar-profile-icon-vector.jpg?s=612x612&w=0&k=20&c=BIbFwuv7FxTWvh5S3vB6bkT0Qv8Vn8N5Ffseq84ClGI="
+                    alt="avatar"
+                    className="h-12 w-12 rounded-full bg-no-repeat object-cover"
+                  />
+                </>
               )}
             </div>
             {visibleOption ? <UserOptions /> : ''}

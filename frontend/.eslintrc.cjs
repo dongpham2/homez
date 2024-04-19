@@ -36,7 +36,7 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': [
       'error',
       {
-        'fixStyle': 'inline-type-imports',
+        fixStyle: 'inline-type-imports',
       },
     ],
 
@@ -70,7 +70,12 @@ module.exports = {
     'react/prop-types': 0,
     'react/require-default-props': 0,
 
-    'prettier/prettier': severity,
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
 
     'immer/no-update-map': 'error',
 
@@ -96,7 +101,7 @@ module.exports = {
     'import/first': 'error',
     'import/newline-after-import': 'error',
     'import/no-duplicates': 'error',
-    'import/extensions': [ 'error', 'never' ],
+    'import/extensions': ['error', 'never'],
     '@typescript-eslint/no-misused-promises': [
       2,
       {
