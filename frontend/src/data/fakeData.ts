@@ -160,7 +160,7 @@ export const dataForYou = [
 ]
 
 export const dataLocation = [
-  //max = 6
+  // max = 6
   {
     img: 'https://akisa.vn/uploads/plugin/product_items/13551/mau-biet-thu-nha-dep-2-tang-hien-dai-bt21377-v2.jpg',
     title: 'Đà Nẵng',

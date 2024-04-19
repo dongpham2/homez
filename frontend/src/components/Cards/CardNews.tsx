@@ -1,4 +1,4 @@
-import { INews } from '~/types/card.type'
+import { type INews } from '~/types/card.type'
 
 const CardNews = ({ title, imageUrls }: INews) => {
   return (

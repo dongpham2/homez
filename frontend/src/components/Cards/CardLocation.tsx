@@ -1,6 +1,8 @@
-import { ICardLocation } from '~/types/card.type'
 import { cva } from 'class-variance-authority'
+
 import { cn } from '~/__generated__/utils'
+import { type ICardLocation } from '~/types/card.type'
+
 const cardLocationVariants = cva('relative flex', {
   variants: {
     variant: {
@@ -12,7 +14,7 @@ const cardLocationVariants = cva('relative flex', {
     variant: 'default',
   },
 })
-export const CardLocation = ({ imageUrls, isSmall, name, subTitle }: ICardLocation) => {
+const CardLocation = ({ imageUrls, isSmall, name, subTitle }: ICardLocation) => {
   return (
     <div className={cn(cardLocationVariants({ variant: isSmall ? 'default' : 'preview' }))}>
       <img className="h-full w-full rounded-lg" src={imageUrls} alt="banner" />
@@ -23,3 +25,5 @@ export const CardLocation = ({ imageUrls, isSmall, name, subTitle }: ICardLocati
     </div>
   )
 }
+
+export default CardLocation

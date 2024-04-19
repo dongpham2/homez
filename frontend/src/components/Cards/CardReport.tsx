@@ -1,9 +1,11 @@
-import { Card, CardDescription, CardFooter, CardTitle } from '../Card'
-import { Button } from '~/components/Button'
+import { useState } from 'react'
+
 import heartOutline from '~/assets/icons/heartOutline.icon.svg'
 import heartOutlineFill from '~/assets/icons/heartOutlineFill.icon.svg'
-import { useState } from 'react'
-import { ICard } from '~/types/card.type'
+import { Button } from '~/components/Button'
+import { type ICard } from '~/types/card.type'
+
+import { Card, CardDescription, CardFooter, CardTitle } from '../Card'
 
 const CardReport = ({ imageUrls, name, regularPrice, area, address, date, save, isOpen, isOutStanding }: ICard) => {
   const [userVote, setUserVote] = useState(save)

@@ -40,7 +40,7 @@ const UserOptions = () => {
             </li>
           </Link>
         ))}
-        <button className="flex cursor-pointer items-center gap-3" onClick={handleSignOut}>
+        <button className="flex cursor-pointer items-center gap-3" type='button' onClick={handleSignOut}>
           Đăng xuất
         </button>
       </ul>

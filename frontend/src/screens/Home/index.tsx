@@ -1,14 +1,17 @@
+import { Link } from 'react-router-dom'
+
+import expandTopRight from '~/assets/icons/expandTopRight.icon.svg'
+import expandWhite from '~/assets/icons/expandWhite.icon.svg'
+import  CardLocation from '~/components/Cards/CardLocation'
+import CardNews from '~/components/Cards/CardNews'
+import CardReport from '~/components/Cards/CardReport'
+import { dataForYou, dataLocation, dataNews, dataOutstanding } from '~/data/fakeData'
+import Sliders from '~/Others/Slider'
+
 import banner from '../../assets/banner.png'
 import { Button } from '../../components/Button'
 import { Input } from '../../components/Input'
-import expandTopRight from '~/assets/icons/expandTopRight.icon.svg'
-import expandWhite from '~/assets/icons/expandWhite.icon.svg'
-import { Link } from 'react-router-dom'
-import CardReport from '~/components/Cards/CardReport'
-import CardNews from '~/components/Cards/CardNews'
-import { CardLocation } from '~/components/Cards/CardLocation'
-import { dataForYou, dataOutstanding, dataLocation, dataNews } from '~/data/fakeData'
-import Sliders from '~/Others/Slider'
+
 const Home = () => {
   return (
     <div className="m-0 flex h-[880px] flex-col overflow-y-auto p-0">
@@ -26,7 +29,7 @@ const Home = () => {
         <div className="flex flex-col overflow-hidden bg-[--gray-secondary] p-5 pb-10 sm:w-auto xl:px-[15%]">
           <div className="mb-10 flex justify-between py-5 sm:items-center">
             <h3 className="text-xl font-medium sm:text-3xl">Dành cho bạn</h3>
-            <Link to={''} className="flex h-full">
+            <Link to="/" className="flex h-full">
               <p className="mr-2 text-base">Xem tất cả</p>
               <img src={expandTopRight} alt="expand top right" />
             </Link>
@@ -62,13 +65,7 @@ const Home = () => {
               <Sliders>
                 {dataLocation.map((item, index) => (
                   <Link to="" className="p-2">
-                    <CardLocation
-                      key={index}
-                      isSmall={true}
-                      imageUrls={item.img}
-                      name={item.title}
-                      subTitle={item.subTitle}
-                    />
+                    <CardLocation key={index} isSmall imageUrls={item.img} name={item.title} subTitle={item.subTitle} />
                   </Link>
                 ))}
               </Sliders>
@@ -77,7 +74,7 @@ const Home = () => {
               {dataLocation.map((item, index) => (
                 <CardLocation
                   key={index}
-                  isSmall={index == 0 || index == dataLocation.length - 1 ? false : true}
+                  isSmall={!(index == 0 || index == dataLocation.length - 1)}
                   imageUrls={item.img}
                   name={item.title}
                   subTitle={item.subTitle}
