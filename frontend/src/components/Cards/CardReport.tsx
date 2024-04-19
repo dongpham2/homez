@@ -5,17 +5,7 @@ import heartOutlineFill from '~/assets/icons/heartOutlineFill.icon.svg'
 import { useState } from 'react'
 import { ICard } from '~/types/card.type'
 
-const CardReport: React.FC<ICard & { isOutStanding: boolean }> = ({
-  imageUrls,
-  name,
-  regularPrice,
-  area,
-  address,
-  date,
-  save,
-  isOpen,
-  isOutStanding,
-}) => {
+const CardReport = ({ imageUrls, name, regularPrice, area, address, date, save, isOpen, isOutStanding }: ICard) => {
   const [userVote, setUserVote] = useState(save)
   const handleVote = () => {
     setUserVote(!userVote)

@@ -22,6 +22,7 @@ export interface ICardLocation {
   name: string
   subTitle: string
   imageUrls: string
+  isSmall: boolean
 }
 export interface INews {
   title: string

@@ -12,12 +12,7 @@ const cardLocationVariants = cva('relative flex', {
     variant: 'default',
   },
 })
-export const CardLocation: React.FC<ICardLocation & { isSmall: boolean }> = ({
-  imageUrls,
-  name,
-  subTitle,
-  isSmall,
-}) => {
+export const CardLocation = ({ imageUrls, isSmall, name, subTitle }: ICardLocation) => {
   return (
     <div className={cn(cardLocationVariants({ variant: isSmall ? 'default' : 'preview' }))}>
       <img className="h-full w-full rounded-lg" src={imageUrls} alt="banner" />
