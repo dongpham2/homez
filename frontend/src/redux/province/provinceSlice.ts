@@ -1,45 +1,46 @@
 import { useDispatch } from 'react-redux'
-import { createAsyncThunk, createSlice, isRejectedWithValue } from '@reduxjs/toolkit'
-import { type AppDispatch } from '../store'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+import { type DistrictResults, type ProvinceResults, type ProvinceState, type WardResults } from '~/types/province.type'
 
-export const fetchProvinces = createAsyncThunk('province/fetchProcvince', async (_ , thunkAPI) => {
+import { type AppDispatch } from '../store'
+
+export const fetchProvinces = createAsyncThunk('province/fetchProcvince', async (_, thunkAPI) => {
   try {
-    const response = await axios.get('https://vapi.vnappmob.com/api/province', {
+    const response = await axios.get<ProvinceResults>('https://vapi.vnappmob.com/api/province', {
       signal: thunkAPI.signal,
     })
-    return response
+    return response.data.results
   } catch (error) {
-    return isRejectedWithValue(error)
+    return thunkAPI.rejectWithValue(error)
   }
 })
 export const fetchDistricts = createAsyncThunk('province/fetchDistrict', async (districtId: number, thunkAPI) => {
   try {
-    const response = await axios.get(`https://vapi.vnappmob.com/api/province/district/${districtId}`, {
+    const response = await axios.get<DistrictResults>(`https://vapi.vnappmob.com/api/province/district/${districtId}`, {
       signal: thunkAPI.signal,
     })
-    return response
+    return response.data.results
   } catch (error) {
-    return isRejectedWithValue(error)
+    return thunkAPI.rejectWithValue(error)
   }
 })
 export const fetchWards = createAsyncThunk('province/fetchWards', async (wardId: number, thunkAPI) => {
   try {
-    const response = await axios.get(`https://vapi.vnappmob.com/api/province/ward/${wardId}`, {
+    const response = await axios.get<WardResults>(`https://vapi.vnappmob.com/api/province/ward/${wardId}`, {
       signal: thunkAPI.signal,
     })
-    return response
+    return response.data.results
   } catch (error) {
-    return isRejectedWithValue(error)
+    return thunkAPI.rejectWithValue(error)
   }
 })
 
-const initialState = {
+const initialState: ProvinceState = {
   provinces: [],
   districts: [],
   wards: [],
-  status: 500
 }
 
 const provinceSlice = createSlice({
@@ -48,19 +49,15 @@ const provinceSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchProvinces.fulfilled, (state, action: any) => {
-        state.provinces = action.payload.data.results
-        state.status = action.payload.status
+      .addCase(fetchProvinces.fulfilled, (state, action) => {
+        state.provinces = action.payload
       })
-      .addCase(fetchDistricts.fulfilled, (state, action: any) => {
-        state.districts = action.payload.data.results
-        state.status = action.payload.status
+      .addCase(fetchDistricts.fulfilled, (state, action) => {
+        state.districts = action.payload
       })
-      .addCase(fetchWards.fulfilled, (state, action: any) => {
-        state.wards = action.payload.data.results
-        state.status = action.payload.status
+      .addCase(fetchWards.fulfilled, (state, action) => {
+        state.wards = action.payload
       })
-      
   },
 })
 

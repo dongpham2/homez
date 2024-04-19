@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 
 import { Button } from '~/components/Button'
+import { Checkbox } from '~/components/Checkbox'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
+import Label from '~/components/Label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '~/components/Select'
+import { fetchDistricts, fetchProvinces, fetchWards, useAppDispatch } from '~/redux/province/provinceSlice'
+import { type RootState } from '~/redux/store'
+import { type District, type Province, type Ward } from '~/types/province.type'
 import postValidate, { type IPost, postInitValues } from '~/validate/post/config'
 
 import app from '~/firebase'
-import { fetchDistricts, fetchProvinces, fetchWards, useAppDispatch } from '~/redux/province/provinceSlice'
-import { useSelector } from 'react-redux'
-import { RootState } from '~/redux/store'
-import Label from '~/components/Label'
 
 interface FormData {
   imageUrls: string[]
@@ -36,23 +38,23 @@ const unitValue = [
 
 const CreatePost = () => {
   const dispatch = useAppDispatch()
-  const { provinces } = useSelector((state: RootState) => state.province)
-  const { districts } = useSelector((state: RootState) => state.province)
-  const { wards } = useSelector((state: RootState) => state.province)
+  const { provinces } = useSelector((state: RootState) => state.provinceReducer)
+  const { districts } = useSelector((state: RootState) => state.provinceReducer)
+  const { wards } = useSelector((state: RootState) => state.provinceReducer)
   const [files, setFiles] = useState<File[]>([])
   const [formData, setFormData] = useState<FormData>({
     imageUrls: [],
   })
-  const [imageUploadError, setImageUploadError] = useState<string   | false>(false)
+  const [imageUploadError, setImageUploadError] = useState<string | false>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const [uploadProgress, setUploadProgress] = useState<number | undefined>(undefined)
-  
-  const promise = dispatch(fetchProvinces())
+  const [_, setUploadProgress] = useState<number | undefined>(undefined)
+
   useEffect(() => {
+    const promise = dispatch(fetchProvinces())
     return () => {
       promise.abort()
     }
-  }, [promise])
+  }, [dispatch])
 
   const handleProvinceChange = (selectedValue: number | null) => {
     if (selectedValue !== null) {
@@ -65,11 +67,20 @@ const CreatePost = () => {
       dispatch(fetchWards(selectedValue))
     }
   }
+
   const form = useForm<IPost>({
     mode: 'all',
     defaultValues: postInitValues,
     resolver: yupResolver(postValidate),
   })
+
+  const { watch, setValue } = form
+
+  const furnished = watch('furnished')
+
+  const handleCheckedFurnished = (checked: boolean) => {
+    setValue('furnished', checked)
+  }
 
   const onSubmit = async () => {}
   const storageImage = async (file: File) => {
@@ -182,13 +193,18 @@ const CreatePost = () => {
                     return (
                       <FormItem>
                         <FormControl>
-                          <Select defaultValue={field.value}  onValueChange={(value: string) => handleProvinceChange(parseInt(value, 10))}>
+                          <Select
+                            defaultValue={field.value}
+                            onValueChange={(value: string) => {
+                              handleProvinceChange(parseInt(value, 10))
+                            }}
+                          >
                             <SelectTrigger className="h-14 w-full border border-input bg-white">
                               <SelectValue placeholder="Select" className="px-2 text-base font-medium" />
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
-                                {provinces.map((province: any) => (
+                                {provinces.map((province: Province) => (
                                   <SelectItem key={province.province_id} value={province.province_id}>
                                     {province.province_name}
                                   </SelectItem>
@@ -213,13 +229,18 @@ const CreatePost = () => {
                     return (
                       <FormItem>
                         <FormControl>
-                          <Select defaultValue={field.value} onValueChange={(value: string) => handleDistrictChange(parseInt(value, 10))}>
+                          <Select
+                            defaultValue={field.value}
+                            onValueChange={(value: string) => {
+                              handleDistrictChange(parseInt(value, 10))
+                            }}
+                          >
                             <SelectTrigger className="h-14 w-full border border-input bg-white">
                               <SelectValue placeholder="Chọn quận/huyện" className="px-2 text-base font-medium" />
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
-                                {districts.map((district: any) => (
+                                {districts.map((district: District) => (
                                   <SelectItem key={district.district_id} value={district.district_id}>
                                     {district.district_name}
                                   </SelectItem>
@@ -252,7 +273,7 @@ const CreatePost = () => {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
-                                {wards.map((ward: any) => (
+                                {wards.map((ward: Ward) => (
                                   <SelectItem key={ward.ward_id} value={ward.ward_id}>
                                     {ward.ward_name}
                                   </SelectItem>
@@ -379,20 +400,11 @@ const CreatePost = () => {
             <div className="flex items-center gap-2">
               <div className="w-full">
                 <h3 className="text-base font-medium">Nội thất</h3>
-                <FormField
+                <Checkbox
                   name="furnished"
-                  control={form.control}
-                  render={({ field }) => {
-                    return (
-                      <FormItem>
-                        <FormControl>
-                          {/* <Input placeholder="Nhập địa chỉ (vd: 112 Hà Huy Tập)" {...field} /> */}
-                        </FormControl>
-                        <FormDescription />
-                        <FormMessage />
-                      </FormItem>
-                    )
-                  }}
+                  checked={furnished}
+                  onCheckedChange={handleCheckedFurnished}
+                  className="border border-black"
                 />
               </div>
               <div className="w-full">
@@ -436,9 +448,9 @@ const CreatePost = () => {
                       >
                         <path
                           stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
                           d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
                         />
                       </svg>

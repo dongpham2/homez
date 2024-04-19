@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -8,14 +7,12 @@ import { Button } from '~/components/Button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
 import AuthLayout from '~/Layout/AuthLayout'
-import { type RootState } from '~/redux/store'
 import { fetchSignIn, useAppDispatch } from '~/redux/user/userSlice'
 import { type ISignInUser } from '~/types/user.type'
 import signinValidate, { signinInitValues } from '~/validate/signin/config'
 
 const SignIn = () => {
   const dispatch = useAppDispatch()
-  const { currentUser } = useSelector((state: RootState) => state.userReducer)
   const navigate = useNavigate()
   const form = useForm<ISignInUser>({
     mode: 'all',
@@ -35,7 +32,7 @@ const SignIn = () => {
         throw new Error('An unknown error occurred')
       }
     }
-  }, [formData, dispatch, status, navigate])
+  }, [formData, dispatch, navigate])
 
   return (
     <AuthLayout label="No Account?" funcTitle="Sign Up" pageTitle="Sign In" toPage="/signup">
