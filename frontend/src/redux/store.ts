@@ -2,10 +2,10 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import userReducer from '~/redux/user/userSlice'
 import provinceReducer from '~/redux/province/provinceSlice'
+import userReducer from '~/redux/user/userSlice'
 
-const rootReducer = combineReducers({ user: userReducer, province: provinceReducer })
+const rootReducer = combineReducers({ userReducer, provinceReducer })
 
 const persistConfig = {
   key: 'root',

@@ -1,11 +1,8 @@
 import * as yup from 'yup'
 
-import messages from './messages'
+import { type ISignInUser } from '~/types/user.type'
 
-export interface IUserReq {
-  email?: string
-  password?: string
-}
+import messages from './messages'
 
 const signinValidate = yup
   .object({
@@ -14,7 +11,7 @@ const signinValidate = yup
   })
   .required()
 
-export const signinInitValues: IUserReq = {
+export const signinInitValues: ISignInUser = {
   email: '',
   password: '',
 }
