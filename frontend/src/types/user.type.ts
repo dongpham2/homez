@@ -12,8 +12,10 @@ export interface ISignUpRequest {
 export interface IUser {
   username?: string
   email: string
-  password: string
-  avatar?: string | null
+  avatar?: string
+  createdAt?: string
+  updatedAt?: string
+  password?: string
 }
 
 export interface ISignInUser {

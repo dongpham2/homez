@@ -1,30 +1,45 @@
+import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
+import { useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Button } from '~/components/Button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
 import AuthLayout from '~/Layout/AuthLayout'
+import { type RootState } from '~/redux/store'
 import { fetchSignUp, useAppDispatch } from '~/redux/user/userSlice'
 import { type ISignUpRequest } from '~/types/user.type'
 import signupValidate, { signupInitValues } from '~/validate/signup/config'
 
 const SignUp = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const { status } = useSelector((state: RootState) => state.userReducer)
 
   const form = useForm<ISignUpRequest>({
     mode: 'all',
     defaultValues: signupInitValues,
     resolver: yupResolver(signupValidate),
   })
-  const onSubmit = async () => {
+  const formData = form.getValues()
+
+  const onSubmit = useCallback(async () => {
     try {
-      const formData = form.getValues()
       await dispatch(fetchSignUp(formData))
+      if (status === 'success') {
+        navigate('/signin')
+      }
     } catch (error) {
-      console.error('Error occurred during sign up:', error)
+      if (error instanceof Error) {
+        throw new Error(error.message)
+      } else {
+        throw new Error('An unknown error occurred')
+      }
     }
-  }
+  }, [formData, dispatch, status, navigate])
+
   return (
     <AuthLayout funcTitle="Sign In" pageTitle="Sign Up" toPage="/signin">
       <Form {...form}>

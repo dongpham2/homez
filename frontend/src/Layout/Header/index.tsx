@@ -9,7 +9,7 @@ import logo from '../../assets/logoM.png'
 import UserOptions from '../UserOptions'
 
 const Header = () => {
-  const { currentUser } = useSelector((state: RootState) => state.user)
+  const { currentUser } = useSelector((state: RootState) => state.userReducer)
   const [visibleOption, setVisibleOption] = useState(false)
   const toggleVisibleOption = () => {
     setVisibleOption(!visibleOption)
@@ -29,11 +29,13 @@ const Header = () => {
         </ul>
       </div>
       <div className="flex gap-2">
-        {Object.keys(currentUser).length ? (
+        {currentUser ? (
           <div className="flex items-center gap-8 object-cover">
-            <Button variant="ghost" size="sm">
-              Đăng tin
-            </Button>
+            <Link to="/createPost">
+              <Button variant="ghost" size="sm">
+                Đăng tin
+              </Button>
+            </Link>
             <div onClick={toggleVisibleOption} className="cursor-pointer">
               {currentUser.avatar ? (
                 <img
@@ -59,9 +61,11 @@ const Header = () => {
             <Link to="/signup">
               <Button size="sm">Đăng ký</Button>
             </Link>
-            <Button variant="ghost" size="sm">
-              Đăng tin
-            </Button>
+            <Link to="/createPost">
+              <Button variant="ghost" size="sm">
+                Đăng tin
+              </Button>
+            </Link>
           </>
         )}
       </div>

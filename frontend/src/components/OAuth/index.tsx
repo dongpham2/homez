@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 import googleIcon from '~/assets/google-icon.svg'
+import { Button } from '~/components/Button'
 import { fetchSignIn, useAppDispatch } from '~/redux/user/userSlice'
 
-import { app } from '../../firebase'
-import { Button } from '../Button'
+import app from '~/firebase'
 
 const OAuth = () => {
   const dispatch = useAppDispatch()
@@ -31,7 +31,7 @@ const OAuth = () => {
       dispatch(fetchSignIn(data))
       navigate('/')
     } catch (error) {
-      console.log('Could not sign in with google', error)
+      throw new Error()
     }
   }
   return (

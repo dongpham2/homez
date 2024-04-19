@@ -10,23 +10,39 @@ const listSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    address: {
+    city: {
       type: String,
       required: true,
     },
-    regularPrice: {
+    district: {
+      type: String,
+      required: true,
+    },
+    wards: {
+      type: String,
+      required: true,
+    },
+    street: {
+      type: String,
+      required: true,
+    },
+    price: {
       type: Number,
       required: true,
     },
-    discountPrice: {
+    unit: {
+      type: String,
+      required: true,
+    },
+    area: {
       type: Number,
       required: true,
     },
-    bathrooms: {
+    bathRooms: {
       type: Number,
       required: true,
     },
-    bedrooms: {
+    bedRooms: {
       type: Number,
       required: true,
     },
@@ -34,20 +50,12 @@ const listSchema = new mongoose.Schema(
       type: Boolean,
       required: true,
     },
-    parking: {
-      type: Boolean,
-      required: true,
-    },
-    type: {
-      type: String,
-      required: true,
-    },
-    offer: {
-      type: Boolean,
-      required: true,
-    },
     imageUrls: {
       type: Array,
+      required: true,
+    },
+    typeofrealestate: {
+      type: String,
       required: true,
     },
     userRef: {
