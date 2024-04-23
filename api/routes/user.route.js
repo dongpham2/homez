@@ -7,5 +7,8 @@ const router = express.Router();
 router.get("/test", test);
 router.post("/update/:id", verifyToken, updateUser);
 router.get("/lists/:id", verifyToken, getUserLists);
+// router.delete('/delete/:id', verifyToken, deleteUser)
 
 export default router;
+// router.post('/update/:id', verifyToken, updateUser)
+// router.get('/:id', verifyToken, getUser)
