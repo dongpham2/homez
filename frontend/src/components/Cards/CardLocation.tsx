@@ -1,5 +1,4 @@
 import { cva } from 'class-variance-authority'
-
 import { cn } from '~/__generated__/utils'
 import { type ICardLocation } from '~/types/card.type'
 
