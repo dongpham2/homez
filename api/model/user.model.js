@@ -16,6 +16,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    phone: {
+      type: Number,
+      require: false,
+    },
     avatar: {
       type: String,
       default:
