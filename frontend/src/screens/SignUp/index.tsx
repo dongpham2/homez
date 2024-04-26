@@ -8,15 +8,15 @@ import { Button } from '~/components/Button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
 import AuthLayout from '~/Layout/AuthLayout'
+import { fetchSignUp, useAppDispatch } from '~/redux/auth/authSlice'
 import { type RootState } from '~/redux/store'
-import { fetchSignUp, useAppDispatch } from '~/redux/user/userSlice'
 import { type ISignUpRequest } from '~/types/user.type'
 import signupValidate, { signupInitValues } from '~/validate/signup/config'
 
 const SignUp = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { status } = useSelector((state: RootState) => state.userReducer)
+  const { status } = useSelector((state: RootState) => state.authReducer)
 
   const form = useForm<ISignUpRequest>({
     mode: 'all',

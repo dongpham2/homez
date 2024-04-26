@@ -47,7 +47,7 @@ const CreatePost = () => {
   })
   const [imageUploadError, setImageUploadError] = useState<string | false>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const [_, setUploadProgress] = useState<number | undefined>(undefined)
+  const [uploadProgress, setUploadProgress] = useState<number | undefined>(undefined)
 
   useEffect(() => {
     const promise = dispatch(fetchProvinces())

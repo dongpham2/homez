@@ -13,6 +13,7 @@ export interface IUser {
   username?: string
   email: string
   avatar?: string
+  phone?: number | undefined
   createdAt?: string
   updatedAt?: string
   password?: string

@@ -7,7 +7,7 @@ import { Button } from '~/components/Button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
 import AuthLayout from '~/Layout/AuthLayout'
-import { fetchSignIn, useAppDispatch } from '~/redux/user/userSlice'
+import { fetchSignIn, useAppDispatch } from '~/redux/auth/authSlice'
 import { type ISignInUser } from '~/types/user.type'
 import signinValidate, { signinInitValues } from '~/validate/signin/config'
 

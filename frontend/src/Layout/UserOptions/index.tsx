@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import personalIcon from '~/assets/personal-infor-icon.svg'
 import userIcon from '~/assets/user-icon.svg'
-import { fetchSignOut, useAppDispatch } from '~/redux/user/userSlice'
+import { fetchSignOut, useAppDispatch } from '~/redux/auth/authSlice'
 
 const userOptionChoices = [
   {
@@ -40,7 +40,7 @@ const UserOptions = () => {
             </li>
           </Link>
         ))}
-        <button className="flex cursor-pointer items-center gap-3" type='button' onClick={handleSignOut}>
+        <button className="flex cursor-pointer items-center gap-3" type="button" onClick={handleSignOut}>
           Đăng xuất
         </button>
       </ul>

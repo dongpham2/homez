@@ -66,8 +66,8 @@ const initialState: UserState = {
   currentUser: null,
 }
 
-const userSlice = createSlice({
-  name: 'user',
+const authSlice = createSlice({
+  name: 'auth',
   initialState,
   reducers: {},
   extraReducers(builder) {
@@ -93,16 +93,11 @@ const userSlice = createSlice({
         state.message = 'Đang xử lý'
       })
       .addCase(fetchSignIn.fulfilled, (state, action) => {
-        if (action.payload) {
           state.currentUser = action.payload
           state.status = 'success'
           state.loading = false
           state.message = 'Đăng nhập thành công'
-        } else {
-          state.status = 'idle'
-          state.message = 'Tài khoản hoặc mật khẩu không chính xác'
-          state.loading = false
-        }
+       
       })
       .addCase(fetchSignIn.rejected, (state) => {
         state.loading = false
@@ -115,17 +110,11 @@ const userSlice = createSlice({
         state.message = 'Đang xử lý'
       })
       .addCase(fetchSignInWithGoogle.fulfilled, (state, action) => {
-        if (action.payload) {
-          state.currentUser = action.payload
-          state.loading = false
-          state.status = 'success'
-          state.message = 'Đăng nhập thành công'
-        } else {
-          state.status = 'idle'
-          state.loading = false
-          state.message = 'Tài khoản lỗi'
-          state.status = 'failed'
-        }
+        state.currentUser = action.payload
+        state.loading = false
+        state.status = 'success'
+        state.message = 'Đăng nhập thành công'
+        
       })
       .addCase(fetchSignOut.pending, (state) => {
         state.status = 'pending'
@@ -140,6 +129,6 @@ const userSlice = createSlice({
   },
 })
 
-export const userSelector = (state: RootState) => state.userReducer
-export default userSlice.reducer
+export const authSelector = (state: RootState) => state.authReducer
+export default authSlice.reducer
 export const useAppDispatch = () => useDispatch<AppDispatch>()

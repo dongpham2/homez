@@ -2,20 +2,19 @@ import { Suspense } from 'react'
 import { useSelector } from 'react-redux'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 
+import Loading from '~/components/Loading'
+import MainLayout from '~/Layout'
+import { type RootState } from '~/redux/store'
+import About from '~/screens/About'
 import CreatePost from '~/screens/CreatePost'
-
-import Loading from './components/Loading'
-import MainLayout from './Layout'
-import { type RootState } from './redux/store'
-import About from './screens/About'
-import Home from './screens/Home'
-import NotFound from './screens/notFound'
-import Profile from './screens/Profile'
-import SignIn from './screens/SignIn'
-import SignUp from './screens/SignUp'
+import Home from '~/screens/Home'
+import NotFound from '~/screens/notFound'
+import Profile from '~/screens/Profile'
+import SignIn from '~/screens/SignIn'
+import SignUp from '~/screens/SignUp'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const currentUser = useSelector((state: RootState) => state.userReducer)
+  const currentUser = useSelector((state: RootState) => state.authReducer)
   if (currentUser.currentUser === null) {
     return <Navigate to="/signin" replace />
   }

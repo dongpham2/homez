@@ -1,10 +1,9 @@
-// import { signInSuccess } from '~/redux/user/userSlice'
 import { useNavigate } from 'react-router-dom'
 import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 import googleIcon from '~/assets/google-icon.svg'
 import { Button } from '~/components/Button'
-import { fetchSignIn, useAppDispatch } from '~/redux/user/userSlice'
+import { fetchSignIn, useAppDispatch } from '~/redux/auth/authSlice'
 
 import app from '~/firebase'
 
