@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import personalIcon from '~/assets/personal-infor-icon.svg'
 import userIcon from '~/assets/user-icon.svg'
-import { fetchSignOut, useAppDispatch } from '~/redux/auth/authSlice'
+import { fetchSignOut, useAppDispatch } from '~/screens/Account/authSlice'
 
 const userOptionChoices = [
   {

@@ -1,6 +1,5 @@
 import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -8,29 +7,24 @@ import { Button } from '~/components/Button'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '~/components/Form'
 import { Input } from '~/components/Input'
 import AuthLayout from '~/Layout/AuthLayout'
-import { fetchSignUp, useAppDispatch } from '~/redux/auth/authSlice'
-import { type RootState } from '~/redux/store'
-import { type ISignUpRequest } from '~/types/user.type'
-import signupValidate, { signupInitValues } from '~/validate/signup/config'
+import { fetchSignIn, useAppDispatch } from '~/screens/Account/authSlice'
+import { type ISignInUser } from '~/types/user.type'
+import signinValidate, { signinInitValues } from '~/validate/signin/config'
 
-const SignUp = () => {
-  const navigate = useNavigate()
+const SignIn = () => {
   const dispatch = useAppDispatch()
-  const { status } = useSelector((state: RootState) => state.authReducer)
-
-  const form = useForm<ISignUpRequest>({
+  const navigate = useNavigate()
+  const form = useForm<ISignInUser>({
     mode: 'all',
-    defaultValues: signupInitValues,
-    resolver: yupResolver(signupValidate),
+    defaultValues: signinInitValues,
+    resolver: yupResolver(signinValidate),
   })
   const formData = form.getValues()
 
   const onSubmit = useCallback(async () => {
     try {
-      await dispatch(fetchSignUp(formData))
-      if (status === 'success') {
-        navigate('/signin')
-      }
+      await dispatch(fetchSignIn(formData))
+      navigate('/home')
     } catch (error) {
       if (error instanceof Error) {
         throw new Error(error.message)
@@ -38,30 +32,12 @@ const SignUp = () => {
         throw new Error('An unknown error occurred')
       }
     }
-  }, [formData, dispatch, status, navigate])
+  }, [formData, dispatch, navigate])
 
   return (
-    <AuthLayout funcTitle="Sign In" pageTitle="Sign Up" toPage="/signin">
+    <AuthLayout label="No Account?" funcTitle="Sign Up" pageTitle="Sign In" toPage="/signup">
       <Form {...form}>
         <form className="flex flex-col gap-5" onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-2">
-            <h3 className="text-base font-medium">Tên người dùng</h3>
-            <FormField
-              name="username"
-              control={form.control}
-              render={({ field }) => {
-                return (
-                  <FormItem>
-                    <FormControl>
-                      <Input placeholder="Nhập tên người dùng" {...field} />
-                    </FormControl>
-                    <FormDescription />
-                    <FormMessage />
-                  </FormItem>
-                )
-              }}
-            />
-          </div>
           <div className="flex flex-col gap-2">
             <h3 className="text-base font-medium">Email</h3>
             <FormField
@@ -98,9 +74,10 @@ const SignUp = () => {
               }}
             />
           </div>
-          <div className="flex justify-end">
-            <Button variant="primary" size="lg" className="w-56 text-white">
-              Đăng ký
+          <p className="flex cursor-pointer justify-end font-medium">Quên mật khẩu?</p>
+          <div className="mt-3 flex justify-end">
+            <Button type="submit" variant="primary" size="lg" className="w-56 text-white">
+              Đăng nhập
             </Button>
           </div>
         </form>
@@ -109,4 +86,4 @@ const SignUp = () => {
   )
 }
 
-export default SignUp
+export default SignIn

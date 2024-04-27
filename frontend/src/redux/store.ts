@@ -2,7 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import authReducer from '~/redux/auth/authSlice'
+import authReducer from '~/screens/Account/authSlice'
 import provinceReducer from '~/redux/province/provinceSlice'
 
 const rootReducer = combineReducers({ authReducer, provinceReducer })

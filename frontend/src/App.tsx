@@ -6,12 +6,13 @@ import Loading from '~/components/Loading'
 import MainLayout from '~/Layout'
 import { type RootState } from '~/redux/store'
 import About from '~/screens/About'
+import SignIn from '~/screens/Account/SignIn'
+import SignUp from '~/screens/Account/SignUp'
 import CreatePost from '~/screens/CreatePost'
 import Home from '~/screens/Home'
 import NotFound from '~/screens/notFound'
 import Profile from '~/screens/Profile'
-import SignIn from '~/screens/SignIn'
-import SignUp from '~/screens/SignUp'
+
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const currentUser = useSelector((state: RootState) => state.authReducer)

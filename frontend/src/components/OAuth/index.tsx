@@ -3,7 +3,7 @@ import { getAuth, GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 import googleIcon from '~/assets/google-icon.svg'
 import { Button } from '~/components/Button'
-import { fetchSignIn, useAppDispatch } from '~/redux/auth/authSlice'
+import { fetchSignIn, useAppDispatch } from '~/screens/Account/authSlice'
 
 import app from '~/firebase'
 
