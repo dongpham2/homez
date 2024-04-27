@@ -1,20 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
 import banner from '~/assets/banner.png'
 import expandTopRight from '~/assets/icons/expandTopRight.icon.svg'
-import expandWhite from '~/assets/icons/expandWhite.icon.svg'
 import CardLocation from '~/components/Cards/CardLocation'
 import CardNews from '~/components/Cards/CardNews'
 import CardReport from '~/components/Cards/CardReport'
 import { Input } from '~/components/Input'
-import { dataForYou, dataLocation, dataNews, dataOutstanding } from '~/data/fakeData'
+import { dataLocation, dataNews } from '~/data/fakeData'
 import useDebounce from '~/hook/useDebounceState'
 import Sliders from '~/Others/Slider'
+import { RootState } from '~/redux/store'
+import { fetchPostLists, useAppDispatch } from '~/screens/Home/homeSlice'
 
 const Home = () => {
+  const dispatch = useAppDispatch()
+  const postListData = useSelector((state: RootState) => state.homeReducer)
   const [searchData, setSearchData] = useState('')
   const debouncedSearchTerm = useDebounce({ value: searchData, delay: 3000 })
+  useEffect(() => {
+    dispatch(fetchPostLists())
+  }, [])
   return (
     <div className="m-0 flex h-[880px] flex-col overflow-y-auto p-0">
       <div>
@@ -35,26 +42,27 @@ const Home = () => {
         <div className="flex flex-col overflow-hidden bg-[--gray-secondary] p-5 pb-10 sm:w-auto xl:px-[15%]">
           <div className="mb-10 flex justify-between py-5 sm:items-center">
             <h3 className="text-xl font-medium sm:text-3xl">Dành cho bạn</h3>
-            <Link to="/" className="flex h-full">
+            <Link to="/list-post" className="flex h-full">
               <p className="mr-2 text-base">Xem tất cả</p>
               <img src={expandTopRight} alt="expand top right" />
             </Link>
           </div>
           <div className="m-5 overflow-visible">
             <Sliders>
-              {dataForYou.map((item, index) => (
-                <Link to="" className="p-2">
+              {postListData.postLists.map((item, index) => (
+                <Link to="" className="p-2" key={index}>
                   <CardReport
-                    key={index}
-                    imageUrls={item.img}
-                    name={item.title}
-                    regularPrice={item.price}
+                    imageUrls={item.imageUrls}
+                    name={item.name}
+                    price={item.price}
                     area={item.area}
-                    address={item.address}
-                    date={item.date}
-                    save={item.vote}
+                    street={item.street}
+                    updatedAt={item.updatedAt}
+                    unit={item.unit}
+                    save={item.save}
                     isOpen
                     isOutStanding={false}
+                    vote={false}
                   />
                 </Link>
               ))}
@@ -87,36 +95,6 @@ const Home = () => {
                 />
               ))}
             </div>
-          </div>
-        </div>
-
-        <div className="flex flex-col  overflow-hidden bg-[--orange-primary] p-5 sm:w-auto xl:px-[15%]">
-          <div className="mb-10 flex items-center justify-between py-5">
-            <h3 className="text-base font-medium text-white sm:text-3xl">Dự án nổi bật</h3>
-            <Link to="" className="flex h-full">
-              <p className="mr-2 text-base text-white">Xem tất cả</p>
-              <img src={expandWhite} alt="expand top right" />
-            </Link>
-          </div>
-          <div className="m-5 overflow-visible">
-            <Sliders>
-              {dataOutstanding.map((item, index) => (
-                <Link to="" className="p-2">
-                  <CardReport
-                    key={index}
-                    imageUrls={item.img}
-                    name={item.title}
-                    regularPrice={item.price}
-                    area={item.area}
-                    address={item.address}
-                    date=""
-                    save
-                    isOpen={item.isOpen}
-                    isOutStanding
-                  />
-                </Link>
-              ))}
-            </Sliders>
           </div>
         </div>
 

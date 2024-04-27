@@ -7,7 +7,7 @@ import { type ICard } from '~/types/card.type'
 
 import { Card, CardDescription, CardFooter, CardTitle } from '../Card'
 
-const CardReport = ({ imageUrls, name, regularPrice, area, address, date, save, isOpen, isOutStanding }: ICard) => {
+const CardReport = ({ imageUrls, name, price, area, street, updatedAt, save, isOpen, isOutStanding }: ICard) => {
   const [userVote, setUserVote] = useState(save)
   const handleVote = () => {
     setUserVote(!userVote)
@@ -29,12 +29,12 @@ const CardReport = ({ imageUrls, name, regularPrice, area, address, date, save, 
         <div className="space-y-2 p-3">
           <CardTitle className="w-64 overflow-hidden text-ellipsis whitespace-nowrap leading-tight">{name} </CardTitle>
           <CardDescription className={`text--orange-primary font-medium ${isOutStanding ? 'text-red-500' : ''}`}>
-            {regularPrice} - {area} m²
+            {price} - {area} m²
           </CardDescription>
-          <CardDescription>{address}</CardDescription>
+          <CardDescription>{street}</CardDescription>
           {!isOutStanding && (
             <CardFooter>
-              <p className="text-base">{date}</p>
+              <p className="text-base">{updatedAt}</p>
               <Button onClick={handleVote}>
                 {userVote ? <img src={heartOutlineFill} alt="icon" /> : <img src={heartOutline} alt="icon" />}
               </Button>

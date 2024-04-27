@@ -1,8 +1,9 @@
 export interface ICard {
   name: string
   description?: string
-  address: string
-  regularPrice: number
+  street: string
+  price: number
+  unit: string
   discountPrice?: number
   bathrooms?: number
   bedrooms?: number
@@ -13,10 +14,11 @@ export interface ICard {
   imageUrls: string
   area: number
   userRef?: string
-  date?: string
+  updatedAt?: string
   save: boolean
   isOpen?: boolean
   isOutStanding: boolean
+  vote: boolean
 }
 export interface ICardLocation {
   name: string

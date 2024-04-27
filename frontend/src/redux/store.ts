@@ -4,8 +4,10 @@ import storage from 'redux-persist/lib/storage'
 
 import authReducer from '~/screens/Account/authSlice'
 import provinceReducer from '~/redux/province/provinceSlice'
+import searchReducer from '~/redux/search/searchSlice'
+import homeReducer from '~/screens/Home/homeSlice'
 
-const rootReducer = combineReducers({ authReducer, provinceReducer })
+const rootReducer = combineReducers({ authReducer, provinceReducer, searchReducer, homeReducer })
 
 const persistConfig = {
   key: 'root',

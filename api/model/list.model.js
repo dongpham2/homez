@@ -62,6 +62,10 @@ const listSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    save: {
+      type: Boolean,
+      required: false,
+    },
   },
   { timestamps: true }
 );

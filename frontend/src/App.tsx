@@ -10,6 +10,7 @@ import SignIn from '~/screens/Account/SignIn'
 import SignUp from '~/screens/Account/SignUp'
 import CreatePost from '~/screens/CreatePost'
 import Home from '~/screens/Home'
+import ListPosts from '~/screens/ListPost'
 import NotFound from '~/screens/notFound'
 import Profile from '~/screens/Profile'
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
       {
         path: 'about',
         element: <About />,
+      },
+      {
+        path: 'list-post',
+        element: <ListPosts />,
       },
     ],
   },
