@@ -31,6 +31,10 @@ module.exports = {
           DEFAULT: 'var(--gray-primary)',
           primary: 'var(--gray-primary)',
         },
+        red: {
+          DEFAULT: 'var(--red-primary)',
+          primary: 'var(--red-primary)',
+        },
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',

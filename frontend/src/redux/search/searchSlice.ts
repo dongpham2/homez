@@ -1,20 +1,30 @@
 import { useDispatch } from 'react-redux'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { RootState, type AppDispatch } from '../store'
-import http from '~/axiosClient'
 
-export const fetchPostListSearch = createAsyncThunk('search/fetchPostListSearch', async (title, thunkAPI) => {
+import { type ICard } from '~/types/card.type'
+
+import http from '~/axiosClient'
+import { type AppDispatch,RootState } from '~/redux/store'
+
+
+
+export const fetchPostListSearch = createAsyncThunk('search/fetchPostListSearch', async (title: string, thunkAPI) => {
   try {
-    const response = await http.post(`api/list/get?searchTerm=${title}`)
+    const response = await http.get<ICard[]>(`api/list/get?searchTerm=${title}`, {
+      signal: thunkAPI.signal,
+    })
     return response.data
   } catch (error) {
     return thunkAPI.rejectWithValue(error)
   }
 })
-
-const initialState = {
+interface SearchState {
+  results: ICard[] | []
+  isLoading: boolean
+}
+const initialState: SearchState = {
   results: [],
-  isLoading: false
+  isLoading: false,
 }
 
 const searchSlice = createSlice({

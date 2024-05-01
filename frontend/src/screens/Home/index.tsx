@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
@@ -7,38 +7,28 @@ import expandTopRight from '~/assets/icons/expandTopRight.icon.svg'
 import CardLocation from '~/components/Cards/CardLocation'
 import CardNews from '~/components/Cards/CardNews'
 import CardReport from '~/components/Cards/CardReport'
-import { Input } from '~/components/Input'
+import Search from '~/components/Search'
 import { dataLocation, dataNews } from '~/data/fakeData'
-import useDebounce from '~/hook/useDebounceState'
 import Sliders from '~/Others/Slider'
-import { RootState } from '~/redux/store'
+import { type RootState } from '~/redux/store'
 import { fetchPostLists, useAppDispatch } from '~/screens/Home/homeSlice'
 
 const Home = () => {
   const dispatch = useAppDispatch()
   const postListData = useSelector((state: RootState) => state.homeReducer)
-  const [searchData, setSearchData] = useState('')
-  const debouncedSearchTerm = useDebounce({ value: searchData, delay: 3000 })
   useEffect(() => {
     dispatch(fetchPostLists())
-  }, [])
+  }, [dispatch])
+
   return (
     <div className="m-0 flex h-[880px] flex-col overflow-y-auto p-0">
       <div>
         <div className="relative">
           <img src={banner} alt="banner" className="w-full overflow-hidden" />
-          <form className="absolute left-1/2 top-1/2 flex h-12 w-[60%] -translate-x-1/2 -translate-y-1/2 transform items-center rounded-lg border-2 border-gray-primary bg-white">
-            <Input
-              type="text"
-              placeholder="Tìm nhanh. VD: Vinhomes Cenntral Park"
-              className="w-full border-none"
-              onChange={(e) => {
-                setSearchData(e.target.value)
-              }}
-            />
-          </form>
+          <div className="absolute left-1/2 top-1/2  w-[60%] -translate-x-1/2 -translate-y-1/2 transform">
+            <Search />
+          </div>
         </div>
-
         <div className="flex flex-col overflow-hidden bg-[--gray-secondary] p-5 pb-10 sm:w-auto xl:px-[15%]">
           <div className="mb-10 flex justify-between py-5 sm:items-center">
             <h3 className="text-xl font-medium sm:text-3xl">Dành cho bạn</h3>

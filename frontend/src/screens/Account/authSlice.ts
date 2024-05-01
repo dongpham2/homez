@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { type ISignUpRequest, type IUser } from '~/types/user.type'
 
 import http from '~/axiosClient'
-import { type AppDispatch, type RootState } from '../../redux/store'
+import { type AppDispatch, type RootState } from '~/redux/store'
 
 
 export const fetchSignUp = createAsyncThunk('accounts/fetchSignUp', async (dataUser: ISignUpRequest, thunkAPI) => {
@@ -93,11 +93,10 @@ const authSlice = createSlice({
         state.message = 'Đang xử lý'
       })
       .addCase(fetchSignIn.fulfilled, (state, action) => {
-          state.currentUser = action.payload
-          state.status = 'success'
-          state.loading = false
-          state.message = 'Đăng nhập thành công'
-       
+        state.currentUser = action.payload
+        state.status = 'success'
+        state.loading = false
+        state.message = 'Đăng nhập thành công'
       })
       .addCase(fetchSignIn.rejected, (state) => {
         state.loading = false
@@ -114,7 +113,6 @@ const authSlice = createSlice({
         state.loading = false
         state.status = 'success'
         state.message = 'Đăng nhập thành công'
-        
       })
       .addCase(fetchSignOut.pending, (state) => {
         state.status = 'pending'

@@ -2,9 +2,9 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
-import authReducer from '~/screens/Account/authSlice'
 import provinceReducer from '~/redux/province/provinceSlice'
 import searchReducer from '~/redux/search/searchSlice'
+import authReducer from '~/screens/Account/authSlice'
 import homeReducer from '~/screens/Home/homeSlice'
 
 const rootReducer = combineReducers({ authReducer, provinceReducer, searchReducer, homeReducer })

@@ -14,7 +14,6 @@ import ListPosts from '~/screens/ListPost'
 import NotFound from '~/screens/notFound'
 import Profile from '~/screens/Profile'
 
-
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const currentUser = useSelector((state: RootState) => state.authReducer)
   if (currentUser.currentUser === null) {
