@@ -204,7 +204,7 @@ const CreatePost = () => {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
-                                {provinces.map((province: Province) => (
+                                {provinces.map((province) => (
                                   <SelectItem key={province.province_id} value={province.province_id}>
                                     {province.province_name}
                                   </SelectItem>

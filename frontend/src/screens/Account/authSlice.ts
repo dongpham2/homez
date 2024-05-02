@@ -1,11 +1,10 @@
 import { useDispatch } from 'react-redux'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
+import { type AppDispatch, type RootState } from '~/redux/store'
 import { type ISignUpRequest, type IUser } from '~/types/user.type'
 
 import http from '~/axiosClient'
-import { type AppDispatch, type RootState } from '~/redux/store'
-
 
 export const fetchSignUp = createAsyncThunk('accounts/fetchSignUp', async (dataUser: ISignUpRequest, thunkAPI) => {
   try {

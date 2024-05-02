@@ -14,7 +14,7 @@ const ListPosts = () => {
       </div>
       <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {listPostData.results.map((item, index) => (
-          <Link to="" className="p-2" key={index}>
+          <Link to={`/post-detail/${item._id}`} className="p-2" key={index}>
             <CardReport
               imageUrls={item.imageUrls}
               name={item.name}

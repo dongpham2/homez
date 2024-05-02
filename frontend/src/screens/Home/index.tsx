@@ -40,7 +40,7 @@ const Home = () => {
           <div className="m-5 overflow-visible">
             <Sliders>
               {postListData.postLists.map((item, index) => (
-                <Link to="" className="p-2" key={index}>
+                <Link to={`/post-detail/${item._id}`} className="p-2" key={index}>
                   <CardReport
                     imageUrls={item.imageUrls}
                     name={item.name}

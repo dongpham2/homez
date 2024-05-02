@@ -1,4 +1,5 @@
 export interface ICard {
+  _id?: string
   name: string
   description?: string
   street: string

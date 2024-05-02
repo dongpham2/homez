@@ -12,6 +12,7 @@ import CreatePost from '~/screens/CreatePost'
 import Home from '~/screens/Home'
 import ListPosts from '~/screens/ListPost'
 import NotFound from '~/screens/notFound'
+import PostDetail from '~/screens/PostDetail'
 import Profile from '~/screens/Profile'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: 'list-post',
         element: <ListPosts />,
+      },
+      {
+        path: 'post-detail/:id',
+        element: <PostDetail />,
       },
     ],
   },

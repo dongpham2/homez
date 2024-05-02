@@ -9,7 +9,15 @@ import { type AppDispatch, type RootState } from '../../redux/store'
 
 export const fetchPostLists = createAsyncThunk('home/fetchPostLists', async (_, thunkAPI) => {
   try {
-    const response = await http.get('api/list/get')
+    const response = await http.get<ICard[]>('api/list/get')
+    return response.data
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error)
+  }
+})
+export const fetchDetailPost = createAsyncThunk('home/fetchDetailPost', async (id: string, thunkAPI) => {
+  try {
+    const response = await http.get<ICard>(`api/list/get/${id}`)
     return response.data
   } catch (error) {
     return thunkAPI.rejectWithValue(error)
@@ -40,6 +48,13 @@ const homeSlice = createSlice({
       .addCase(fetchPostLists.fulfilled, (state, action) => {
         state.idLoading = false
         state.postLists = action.payload
+      })
+      .addCase(fetchDetailPost.pending, (state) => {
+        state.idLoading = true
+      })
+      .addCase(fetchDetailPost.fulfilled, (state, action) => {
+        state.idLoading = false
+        state.post = action.payload
       })
   },
 })
