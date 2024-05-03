@@ -19,10 +19,12 @@ export const fetchPostListSearch = createAsyncThunk('search/fetchPostListSearch'
 interface SearchState {
   results: ICard[] | []
   isLoading: boolean
+  status: string
 }
 const initialState: SearchState = {
   results: [],
   isLoading: false,
+  status: 'idle',
 }
 
 const searchSlice = createSlice({
@@ -33,13 +35,16 @@ const searchSlice = createSlice({
     builder
       .addCase(fetchPostListSearch.pending, (state) => {
         state.isLoading = true
+        state.status = 'pending'
       })
       .addCase(fetchPostListSearch.fulfilled, (state, action) => {
         state.isLoading = false
         if (action.payload.length > 0) {
           state.results = action.payload
+          state.status = 'success'
         } else {
           state.results = []
+          state.status = 'failed'
         }
       })
   },

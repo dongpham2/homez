@@ -25,12 +25,14 @@ export const fetchDetailPost = createAsyncThunk('home/fetchDetailPost', async (i
 })
 
 interface homeState {
+  status: string
   idLoading: boolean
   postLists: ICard[] | []
   post: ICard | {}
 }
 
 const initialState: homeState = {
+  status: 'idle',
   idLoading: false,
   postLists: [],
   post: {},
@@ -43,16 +45,20 @@ const homeSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchPostLists.pending, (state) => {
+        state.status = 'pending'
         state.idLoading = true
       })
       .addCase(fetchPostLists.fulfilled, (state, action) => {
+        state.status = 'success'
         state.idLoading = false
         state.postLists = action.payload
       })
       .addCase(fetchDetailPost.pending, (state) => {
+        state.status = 'pending'
         state.idLoading = true
       })
       .addCase(fetchDetailPost.fulfilled, (state, action) => {
+        state.status = 'success'
         state.idLoading = false
         state.post = action.payload
       })

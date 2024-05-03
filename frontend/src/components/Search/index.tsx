@@ -9,7 +9,6 @@ const Search = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [searchData, setSearchData] = useState<string>('')
-
   const handleSearchPost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     const urlParams = new URLSearchParams(window.location.search)
@@ -17,7 +16,7 @@ const Search = () => {
     const searchQuery = urlParams.toString()
     if (searchData.trim()) {
       dispatch(fetchPostListSearch(searchData))
-      navigate(`/list-post?${searchQuery}`)
+      navigate(`/tags?${searchQuery}`)
     }
   }
   useEffect(() => {

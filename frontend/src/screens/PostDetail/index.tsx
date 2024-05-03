@@ -10,17 +10,7 @@ const PostDetail = () => {
   const dispatch = useAppDispatch()
   const detailPost = useSelector((state: RootState) => state.homeReducer)
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        await dispatch(fetchDetailPost(id!))
-      } catch (error) {
-        throw new Error()
-      }
-    }
-
-    if (id) {
-      fetchData()
-    }
+    dispatch(fetchDetailPost(id!))
   }, [id, dispatch])
   return <div>PostDetail</div>
 }

@@ -27,7 +27,8 @@ export interface WardResults {
 }
 
 export interface ProvinceState {
-  provinces: Province[] | []
-  districts: District[] | []
-  wards: Ward[] | []
+  provinces: Province | []
+  districts: District | []
+  wards: Ward | []
+  status: string
 }

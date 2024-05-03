@@ -1,4 +1,3 @@
-import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -13,6 +12,7 @@ import signinValidate, { signinInitValues } from '~/validate/signin/config'
 
 const SignIn = () => {
   const dispatch = useAppDispatch()
+  // const currentUser = useSelector((state: RootState) => state.authReducer)
   const navigate = useNavigate()
   const form = useForm<ISignInUser>({
     mode: 'all',
@@ -21,18 +21,14 @@ const SignIn = () => {
   })
   const formData = form.getValues()
 
-  const onSubmit = useCallback(async () => {
-    try {
-      await dispatch(fetchSignIn(formData))
-      navigate('/home')
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new Error(error.message)
-      } else {
-        throw new Error('An unknown error occurred')
-      }
-    }
-  }, [formData, dispatch, navigate])
+  const onSubmit = () => {
+    dispatch(fetchSignIn(formData))
+    // if (currentUser.status == 'success') {
+    navigate('/home')
+    // } else {
+    //   navigate('/signin')
+    // }
+  }
 
   return (
     <AuthLayout label="No Account?" funcTitle="Sign Up" pageTitle="Sign In" toPage="/signup">

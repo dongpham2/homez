@@ -41,6 +41,7 @@ const initialState: ProvinceState = {
   provinces: [],
   districts: [],
   wards: [],
+  status: 'idle',
 }
 
 const provinceSlice = createSlice({
@@ -50,12 +51,15 @@ const provinceSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchProvinces.fulfilled, (state, action) => {
+        state.status = 'success'
         state.provinces = action.payload
       })
       .addCase(fetchDistricts.fulfilled, (state, action) => {
+        state.status = 'success'
         state.districts = action.payload
       })
       .addCase(fetchWards.fulfilled, (state, action) => {
+        state.status = 'success'
         state.wards = action.payload
       })
   },
