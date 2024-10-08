@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
+// import { useSelector } from 'react-redux'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage'
 
@@ -11,8 +11,8 @@ import { Input } from '~/components/Input'
 import Label from '~/components/Label'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '~/components/Select'
 import { fetchDistricts, fetchProvinces, fetchWards, useAppDispatch } from '~/redux/province/provinceSlice'
-import { type RootState } from '~/redux/store'
-import { type District, type Province, type Ward } from '~/types/province.type'
+// import { type RootState } from '~/redux/store'
+// import { type District, type Ward } from '~/types/province.type'
 import postValidate, { type IPost, postInitValues } from '~/validate/post/config'
 
 import app from '~/firebase'
@@ -38,16 +38,16 @@ const unitValue = [
 
 const CreatePost = () => {
   const dispatch = useAppDispatch()
-  const { provinces } = useSelector((state: RootState) => state.provinceReducer)
-  const { districts } = useSelector((state: RootState) => state.provinceReducer)
-  const { wards } = useSelector((state: RootState) => state.provinceReducer)
+  // const { provinces } = useSelector((state: RootState) => state.provinceReducer)
+  // const { districts } = useSelector((state: RootState) => state.provinceReducer)
+  // const { wards } = useSelector((state: RootState) => state.provinceReducer)
   const [files, setFiles] = useState<File[]>([])
   const [formData, setFormData] = useState<FormData>({
     imageUrls: [],
   })
   const [imageUploadError, setImageUploadError] = useState<string | false>(false)
   const [uploading, setUploading] = useState<boolean>(false)
-  const [uploadProgress, setUploadProgress] = useState<number | undefined>(undefined)
+  const [_, setUploadProgress] = useState<number | undefined>(undefined)
 
   useEffect(() => {
     const promise = dispatch(fetchProvinces())
@@ -204,11 +204,11 @@ const CreatePost = () => {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
-                                {provinces.map((province) => (
+                                {/* {provinces.map((province) => (
                                   <SelectItem key={province.province_id} value={province.province_id}>
                                     {province.province_name}
                                   </SelectItem>
-                                ))}
+                                ))} */}
                               </SelectGroup>
                             </SelectContent>
                           </Select>
@@ -240,11 +240,11 @@ const CreatePost = () => {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
-                                {districts.map((district: District) => (
+                                {/* {districts.map((district: District) => (
                                   <SelectItem key={district.district_id} value={district.district_id}>
                                     {district.district_name}
                                   </SelectItem>
-                                ))}
+                                ))} */}
                               </SelectGroup>
                             </SelectContent>
                           </Select>
@@ -273,11 +273,11 @@ const CreatePost = () => {
                             </SelectTrigger>
                             <SelectContent>
                               <SelectGroup>
-                                {wards.map((ward: Ward) => (
+                                {/* {wards.map((ward: Ward) => (
                                   <SelectItem key={ward.ward_id} value={ward.ward_id}>
                                     {ward.ward_name}
                                   </SelectItem>
-                                ))}
+                                ))} */}
                               </SelectGroup>
                             </SelectContent>
                           </Select>

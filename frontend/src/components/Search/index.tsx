@@ -38,8 +38,10 @@ const Search = () => {
         }}
       />
       <Button
+        variant="default"
+        size="sm"
         onClick={handleSearchPost}
-        className="absolute right-2 h-10 border bg-red-primary p-2 text-sm font-normal text-white opacity-90 hover:bg-red-primary"
+        className="absolute right-2 hover:bg-none"
       >
         Tìm kiếm
       </Button>

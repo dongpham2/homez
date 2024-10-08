@@ -10,20 +10,20 @@ import CardReport from '~/components/Cards/CardReport'
 import Loading from '~/components/Loading'
 import Search from '~/components/Search'
 import { dataLocation, dataNews } from '~/data/fakeData'
-import Sliders from '~/Others/Slider'
+import Sliders from '~/components/Slider'
 import { type RootState } from '~/redux/store'
 import { fetchPostLists, useAppDispatch } from '~/screens/Home/homeSlice'
 
 const Home = () => {
   const dispatch = useAppDispatch()
   const postListData = useSelector((state: RootState) => state.homeReducer)
-  
+
   useEffect(() => {
     dispatch(fetchPostLists())
   }, [dispatch])
 
   return (
-    <div className="m-0 flex h-[880px] flex-col overflow-y-auto p-0">
+    <div className="m-0 flex h-[880px] flex-col p-0">
       {postListData.idLoading ? (
         <Loading />
       ) : (

@@ -4,17 +4,17 @@ import { cva, type VariantProps } from 'class-variance-authority'
 
 import { cn } from '~/__generated__/utils'
 
-const buttonVariants = cva('text-base text-black rounded-sm font-semibold', {
+const buttonVariants = cva('text-black rounded-sm font-semibold', {
   variants: {
     variant: {
       default: 'text-black hover:bg-gray-primary bg-none',
-      primary: 'border bg-orange-primary',
-      ghost: 'border hover:bg-gray-primary',
+      primary: 'border bg-violet-primary text-white hover:opacity-95',
+      ghost: 'border hover:bg-ghost-primary bg-gray-primary',
       light: 'bg-white',
     },
     size: {
       default: 'rounded-md',
-      sm: 'lg:px-4 lg:py-3 sm:px-3 sm:py-2',
+      sm: 'p-2 sm:p-3',
       lg: 'rounded-xl py-5 px-8',
       xl: 'py-6 px-24',
       mdIcon: 'px-4 lg:px-4 lg:py-3 sm:px-3 sm:py-2',

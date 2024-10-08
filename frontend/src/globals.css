@@ -6,6 +6,8 @@
 body {
   font-family: 'Noto Sans JP', sans-serif;
   overflow-y: scroll;
+  color: var(--black-primary);
+  font-size: 16px;
 }
 
 @layer base {
@@ -43,6 +45,10 @@ body {
     --green-secondary: #e5f8e5;
     --red-primary: #ff0000;
     --red-secondary: #ffe5e5;
+    --violet-primary: #7065f0;
+    --ghost-primary: #e0def7;
+    --black-primary: #01040f;
+    --black-secondary: #3b28a7;
   }
 
   .dark {
@@ -65,6 +71,7 @@ body {
     --border: 240 3.7% 15.9%;
     --input: 240 3.7% 15.9%;
     --ring: 240 4.9% 83.9%;
+    --violet-primary: #7065f0;
   }
 }
 
@@ -75,7 +82,6 @@ body {
 
   body {
     @apply text-default;
-    @apply overflow-hidden;
   }
 }
 

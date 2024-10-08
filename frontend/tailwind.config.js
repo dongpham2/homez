@@ -55,6 +55,19 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        violet: {
+          DEFAULT: 'var(--violet-primary)',
+          primary: 'var(--violet-primary)',
+        },
+        ghost: {
+          DEFAULT: 'var(--ghost-primary)',
+          primary: 'var(--ghost-primary)',
+        },
+        black: {
+          DEFAULT: 'var(--black-primary)',
+          primary: 'var(--black-primary)',
+          secondary: 'var(--black-secondary)',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',

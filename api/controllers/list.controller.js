@@ -16,7 +16,6 @@ export const getList = async (req, res, next) => {
     if (!list) {
       return next(errorHandler(404, "Listing not found!"));
     }
-    console.log(list);
     res.status(200).json(list);
   } catch (error) {
     next(error);

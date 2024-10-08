@@ -48,7 +48,6 @@ const homeSlice = createSlice({
         state.idLoading = true
       })
       .addCase(fetchPostLists.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.status = 'success'
         state.idLoading = false
         state.postLists = action.payload
