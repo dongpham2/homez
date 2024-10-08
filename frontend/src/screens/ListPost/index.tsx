@@ -11,9 +11,11 @@ import { fetchPostLists, useAppDispatch } from '~/screens/Home/homeSlice'
 const ListPosts = () => {
   const dispatch = useAppDispatch()
   const postListData = useSelector((state: RootState) => state.homeReducer)
+
   useEffect(() => {
     dispatch(fetchPostLists())
   }, [dispatch])
+  
   return (
     <div className="p-10">
       {postListData.idLoading ? (
@@ -24,7 +26,7 @@ const ListPosts = () => {
             <Search />
           </div>
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-            {postListData.postLists.map((item, index) => (
+            {postListData?.postLists.map((item, index) => (
               <Link to={`/post-detail/${item._id}`} className="p-2" key={index}>
                 <CardReport
                   imageUrls={item.imageUrls}

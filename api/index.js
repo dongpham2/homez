@@ -7,8 +7,6 @@ import listRouter from "./routes/list.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-
-
 const app = express();
 
 app.use(cookieParser());
@@ -26,11 +24,20 @@ mongoose
 
 app.use(express.json());
 
-
 app.listen(3000, () => {
   console.log("Server is running on port 3000!");
 });
 
+const connectToDatabase = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO);
+    console.log("Connected to MongoDB!!");
+  } catch (err) {
+    console.error("Failed to connect to MongoDB:", err);
+  }
+};
+
+connectToDatabase();
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);

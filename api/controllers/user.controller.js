@@ -1,7 +1,7 @@
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 import User from "../model/user.model.js";
-import List from "../model/List.model.js";
+import List from "../model/list.model.js";
 
 export const test = (req, res) => {
   res.json({
@@ -51,7 +51,6 @@ export const getUserLists = async (req, res, next) => {
     return next(errorHandler(401, "You can only view your own listings!"));
   }
 };
-
 
 export const getUser = async (req, res, next) => {
   try {

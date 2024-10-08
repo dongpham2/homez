@@ -67,7 +67,7 @@ const listSchema = new mongoose.Schema(
       required: false,
     },
   },
-  { timestamps: true }
+  { timestamps: true, suppressReservedKeysWarning: true }
 );
 
 const List = mongoose.model("List", listSchema);

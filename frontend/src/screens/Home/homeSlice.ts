@@ -6,7 +6,6 @@ import { type ICard } from '~/types/card.type'
 import http from '~/axiosClient'
 import { type AppDispatch, type RootState } from '../../redux/store'
 
-
 export const fetchPostLists = createAsyncThunk('home/fetchPostLists', async (_, thunkAPI) => {
   try {
     const response = await http.get<ICard[]>('api/list/get')
@@ -17,7 +16,7 @@ export const fetchPostLists = createAsyncThunk('home/fetchPostLists', async (_, 
 })
 export const fetchDetailPost = createAsyncThunk('home/fetchDetailPost', async (id: string, thunkAPI) => {
   try {
-    const response = await http.get<ICard>(`api/list/get/${id}`)
+    const response = await http.get<ICard>(`/api/list/get/${id}`)
     return response.data
   } catch (error) {
     return thunkAPI.rejectWithValue(error)
@@ -49,6 +48,7 @@ const homeSlice = createSlice({
         state.idLoading = true
       })
       .addCase(fetchPostLists.fulfilled, (state, action) => {
+        console.log(action.payload)
         state.status = 'success'
         state.idLoading = false
         state.postLists = action.payload

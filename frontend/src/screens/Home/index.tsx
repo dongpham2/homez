@@ -17,6 +17,7 @@ import { fetchPostLists, useAppDispatch } from '~/screens/Home/homeSlice'
 const Home = () => {
   const dispatch = useAppDispatch()
   const postListData = useSelector((state: RootState) => state.homeReducer)
+  
   useEffect(() => {
     dispatch(fetchPostLists())
   }, [dispatch])
@@ -43,7 +44,7 @@ const Home = () => {
             </div>
             <div className="m-5 overflow-visible">
               <Sliders>
-                {postListData.postLists.map((item, index) => (
+                {postListData?.postLists.map((item, index) => (
                   <Link to={`/post-detail/${item._id}`} className="p-2" key={index}>
                     <CardReport
                       imageUrls={item.imageUrls}

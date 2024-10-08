@@ -10,14 +10,14 @@ const authMiddleware = (req, res, next) => {
   jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, function (err, user) {
     if (err) {
       return res.status(404).json({
-        message: "The user is not authemtication",
+        message: "The user is not authentication",
       });
     }
     if (user.isAdmin) {
       next();
     } else {
       return res.status(404).json({
-        message: "The user is not authemtication",
+        message: "The user is not authentication",
       });
     }
   });

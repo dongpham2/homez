@@ -1,4 +1,4 @@
-import List from "../model/List.model.js";
+import List from "../model/list.model.js";
 import { errorHandler } from "../utils/error.js";
 
 export const createList = async (req, res, next) => {
@@ -16,6 +16,7 @@ export const getList = async (req, res, next) => {
     if (!list) {
       return next(errorHandler(404, "Listing not found!"));
     }
+    console.log(list);
     res.status(200).json(list);
   } catch (error) {
     next(error);
@@ -59,8 +60,6 @@ export const updateList = async (req, res, next) => {
     next(error);
   }
 };
-
-
 
 export const getLists = async (req, res, next) => {
   try {
