@@ -1,21 +1,19 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
 
 import home from '~/assets/home-banner.png'
 import renter from '~/assets/renter.svg'
 import properties from '~/assets/properties.svg'
 
-import expandTopRight from '~/assets/icons/expandTopRight.icon.svg'
-import CardLocation from '~/components/Cards/CardLocation'
-import CardNews from '~/components/Cards/CardNews'
-import CardReport from '~/components/Cards/CardReport'
-import Loading from '~/components/Loading'
-import Search from '~/components/Search'
-import { dataLocation, dataNews } from '~/data/fakeData'
-import Sliders from '~/components/Slider'
+// import expandTopRight from '~/assets/icons/expandTopRight.icon.svg'
+// import CardReport from '~/components/Cards/CardEstate'
+// import Loading from '~/components/Loading'
+// import Search from '~/components/Search'
+// import { dataLocation, dataNews } from '~/data/fakeData'
+// import Sliders from '~/components/Slider'
 import { type RootState } from '~/redux/store'
 import { fetchPostLists, useAppDispatch } from '~/screens/Home/homeSlice'
+import CardEstate from '~/components/Cards/CardEstate'
 
 const Home = () => {
   const dispatch = useAppDispatch()
@@ -48,6 +46,27 @@ const Home = () => {
           <img src={home} alt="home" className='max-w-full bg-cover bg-no-repeat'/>
         </div>
       </div>
+      <section className='px-10 mt-15'>
+        <h1 className='text-xl sm:text-2xl md:text-3xl font-bold mb-5'>Đang HOT</h1>
+        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+        {postListData?.postLists.map((item, _index) => (
+        // <Link to={`/post-detail/${item._id}`} className="p-2" key={index}>
+          <CardEstate
+            imageUrls={item.imageUrls}
+            name={item.name}
+            price={item.price}
+            area={item.area}
+            street={item.street}
+            updatedAt={item.updatedAt}
+            unit={item.unit}
+            save={item.save}
+            isOpen
+            vote={false}
+          />
+        // </Link>
+      ))}
+      </div>
+      </section>
     </div>
   )
 }

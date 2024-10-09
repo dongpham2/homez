@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import CardEstate from '~/components/Cards/CardEstate'
 
-import CardReport from '~/components/Cards/CardReport'
 import Loading from '~/components/Loading'
 import Search from '~/components/Search'
 import { type RootState } from '~/redux/store'
@@ -28,7 +28,7 @@ const ListPosts = () => {
           <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
             {postListData?.postLists.map((item, index) => (
               <Link to={`/post-detail/${item._id}`} className="p-2" key={index}>
-                <CardReport
+                <CardEstate
                   imageUrls={item.imageUrls}
                   name={item.name}
                   price={item.price}
@@ -38,7 +38,6 @@ const ListPosts = () => {
                   unit={item.unit}
                   save={item.save}
                   isOpen
-                  isOutStanding={false}
                   vote={false}
                 />
               </Link>

@@ -18,7 +18,6 @@ export interface ICard {
   updatedAt?: string
   save: boolean
   isOpen?: boolean
-  isOutStanding: boolean
   vote: boolean
 }
 export interface ICardLocation {
