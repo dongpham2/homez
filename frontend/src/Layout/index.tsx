@@ -5,7 +5,7 @@ import Header from './Header'
 const MainLayout = () => {
   return (
     <div>
-      <div>
+      <div className='bg-navbar-primary'>
         <Header />
       </div>
       <div>

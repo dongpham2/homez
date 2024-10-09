@@ -9,6 +9,15 @@ const Search = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [searchData, setSearchData] = useState<string>('')
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search)
+    const searchTermFromUrl = urlParams.get('searchTerm')
+    if (searchTermFromUrl) {
+      setSearchData(searchTermFromUrl)
+    }
+  }, [location.search])
+  
   const handleSearchPost = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     const urlParams = new URLSearchParams(window.location.search)
@@ -19,13 +28,6 @@ const Search = () => {
       navigate(`/tags?${searchQuery}`)
     }
   }
-  useEffect(() => {
-    const urlParams = new URLSearchParams(location.search)
-    const searchTermFromUrl = urlParams.get('searchTerm')
-    if (searchTermFromUrl) {
-      setSearchData(searchTermFromUrl)
-    }
-  }, [location.search])
 
   return (
     <form className="flex h-12 items-center rounded-lg border-2 border-gray-primary bg-white">

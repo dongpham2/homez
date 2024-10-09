@@ -2,7 +2,10 @@ import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import banner from '~/assets/banner.png'
+import home from '~/assets/home-banner.png'
+import renter from '~/assets/renter.svg'
+import properties from '~/assets/properties.svg'
+
 import expandTopRight from '~/assets/icons/expandTopRight.icon.svg'
 import CardLocation from '~/components/Cards/CardLocation'
 import CardNews from '~/components/Cards/CardNews'
@@ -23,96 +26,28 @@ const Home = () => {
   }, [dispatch])
 
   return (
-    <div className="m-0 flex h-[880px] flex-col p-0">
-      {postListData.idLoading ? (
-        <Loading />
-      ) : (
-        <div>
-          <div className="relative">
-            <img src={banner} alt="banner" className="w-full overflow-hidden" />
-            <div className="absolute left-1/2 top-1/2  w-[60%] -translate-x-1/2 -translate-y-1/2 transform">
-              <Search />
+    <div className="m-0 flex max-h-[880px] flex-col p-0 bg-linear">
+      <div className='px-6 py-10 md:px-0 md:py-0 flex flex-col md:flex-row'>
+        <div className='sm:pl-16 sm:pr-4 sm:py-20 flex flex-col gap-5'>
+          <h1 className='text-2xl lg:text-3xl xl:text-4xl text-black-primary font-bold'>Mua, bán, cho thuê bất động sản dễ dàng</h1>
+          <p className='text-sm sm:text-base md:text-lg text-black-primary font-normal'>Nền tảng bất động sản uy tín top 1, mang đến cho khách hàng những thông tin thú vị</p>
+          <div className='flex gap-8 justify-center sm:justify-start'>
+            <div className='flex flex-col gap-3'>
+              <img src={renter} alt="renter" className='size-14'/>
+              <p className='text-violet-primary font-bold text-lg'>10K+ người bán</p>
+              <p className='hidden sm:block'>Tin tưởng dịch vụ chúng tôi</p>
             </div>
-          </div>
-          <div className="flex flex-col overflow-hidden bg-[--gray-secondary] p-5 pb-10 sm:w-auto xl:px-[15%]">
-            <div className="mb-10 flex justify-between py-5 sm:items-center">
-              <h3 className="text-xl font-medium sm:text-3xl">Dành cho bạn</h3>
-              <Link to="/list-post" className="flex h-full">
-                <p className="mr-2 text-base">Xem tất cả</p>
-                <img src={expandTopRight} alt="expand top right" />
-              </Link>
-            </div>
-            <div className="m-5 overflow-visible">
-              <Sliders>
-                {postListData?.postLists.map((item, index) => (
-                  <Link to={`/post-detail/${item._id}`} className="p-2" key={index}>
-                    <CardReport
-                      imageUrls={item.imageUrls}
-                      name={item.name}
-                      price={item.price}
-                      area={item.area}
-                      street={item.street}
-                      updatedAt={item.updatedAt}
-                      unit={item.unit}
-                      save={item.save}
-                      isOpen
-                      isOutStanding={false}
-                      vote={false}
-                    />
-                  </Link>
-                ))}
-              </Sliders>
-            </div>
-          </div>
-
-          <div className="flex flex-col overflow-hidden bg-white p-5 pb-10 sm:w-auto xl:px-[15%]">
-            <div className="mb-10 flex items-center justify-center">
-              <h3 className="py-5 text-base font-medium sm:text-3xl">Bất động sản theo địa điểm</h3>
-            </div>
-            <div className="overflow-visible">
-              <div className="flex-row sm:hidden">
-                <Sliders>
-                  {dataLocation.map((item, index) => (
-                    <Link to="" className="p-2">
-                      <CardLocation
-                        key={index}
-                        isSmall
-                        imageUrls={item.img}
-                        name={item.title}
-                        subTitle={item.subTitle}
-                      />
-                    </Link>
-                  ))}
-                </Sliders>
-              </div>
-              <div className="hidden max-h-[600px] min-w-[550px] gap-4 sm:grid sm:grid-cols-4 sm:grid-rows-2">
-                {dataLocation.map((item, index) => (
-                  <CardLocation
-                    key={index}
-                    isSmall={!(index === 0 || index === dataLocation.length - 1)}
-                    imageUrls={item.img}
-                    name={item.title}
-                    subTitle={item.subTitle}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className=" relative h-full max-h-[500px] overflow-hidden bg-white p-5 pb-10 sm:w-auto xl:px-[15%]">
-            <h3 className="mb-10 text-base font-medium sm:text-3xl">Tin tức bất động sản</h3>
-            <div className=" m-5 overflow-visible">
-              <Sliders>
-                {dataNews.map((item, index) => (
-                  <Link to="" className="p-2">
-                    <CardNews key={index} title={item.title} imageUrls={item.img} />
-                  </Link>
-                ))}
-              </Sliders>
+            <div className='flex flex-col gap-3'>
+              <img src={properties} alt="properties" className='size-14'/>
+              <p className='text-violet-primary font-bold text-lg'>100k+ tin đăng</p>
+              <p className='hidden sm:block'>Bất động sản sẵn sàng giao dịch</p>
             </div>
           </div>
         </div>
-      )}
+        <div className='flex justify-center'>
+          <img src={home} alt="home" className='max-w-full bg-cover bg-no-repeat'/>
+        </div>
+      </div>
     </div>
   )
 }

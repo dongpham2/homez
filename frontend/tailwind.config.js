@@ -68,6 +68,10 @@ module.exports = {
           primary: 'var(--black-primary)',
           secondary: 'var(--black-secondary)',
         },
+        navbar: {
+          DEFAULT: 'rgba(var(--navbar-background))',
+          primary: 'rgba(var(--navbar-background))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',

@@ -35,7 +35,8 @@ body {
     --radius: 0.75rem;
     --radius: 0.75rem;
     --text-color-default: #1e1e1e;
-    --linear-gradient-background: 90deg, #5492fd 0%, #f27ec4 51.04%, #a599ed 100%;
+    --linear-gradient-background: 180deg, #e0def7 0%, rgba(224, 222, 247, 0%) 100%;
+    --navbar-background: 255, 255, 255, 40%;
     --orange-primary: #e03c31;
     --gray-primary: #fafafa;
     --gray-secondary: #f7f7f7;
