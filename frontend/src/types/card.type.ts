@@ -6,8 +6,8 @@ export interface ICard {
   price: number
   unit: string
   discountPrice?: number
-  bathrooms?: number
-  bedrooms?: number
+  bathRooms?: number
+  bedRooms?: number
   furnished?: boolean
   parking?: boolean
   type?: string
@@ -15,10 +15,11 @@ export interface ICard {
   imageUrls: string
   area: number
   userRef?: string
-  updatedAt?: string
+  updatedAt: string
   save: boolean
   isOpen?: boolean
   vote: boolean
+  city?: string
 }
 export interface ICardLocation {
   name: string

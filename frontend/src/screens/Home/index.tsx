@@ -50,8 +50,8 @@ const Home = () => {
         <h1 className='text-xl sm:text-2xl md:text-3xl font-bold mb-5'>Đang HOT</h1>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
         {postListData?.postLists.map((item, _index) => (
-        // <Link to={`/post-detail/${item._id}`} className="p-2" key={index}>
           <CardEstate
+            _id={item._id}
             imageUrls={item.imageUrls}
             name={item.name}
             price={item.price}
@@ -62,8 +62,10 @@ const Home = () => {
             save={item.save}
             isOpen
             vote={false}
+            bathRooms={item.bathRooms}
+            bedRooms={item.bedRooms}
+            city={item.city}
           />
-        // </Link>
       ))}
       </div>
       </section>
